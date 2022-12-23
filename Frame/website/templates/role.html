@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title%} Role {% endblock%}
+
+{% block body %}
+<p class="text-start">E-mail: {{ user.email }}</p>
+<p class="text-start">Full Name: {{ user.firstname }} {{ user.lastname }}</p>
+<p class="text-start">Org: {{ user.org }}</p>
+<p class="text-start">Role: {{ user.role }}</p>
+<form method="POST">
+    <select class="form-select" name="role" id="role" multiple aria-label="multiple select example">
+        <option selected>Open this select menu</option>
+        <option value="Reader">Reader</option>
+        <option value="Editer">Editer</option>
+        <option value="Manager">Manager</option>
+      </select>
+    
+    <button type="submit" class="btn btn-primary">Change Role</button>
+  </form>
+
+{% endblock %}

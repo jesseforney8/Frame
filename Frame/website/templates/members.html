@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title%} Members {% endblock%}
+
+{% block body %}
+<h3>Add User to organization.</h3>
+<form method="POST">
+    <input id="email" name="email">
+    <button type="submit" id="btn">Add User</button>
+</form
+
+{%for member in members%}
+<ul class="list-group">
+    <li class="list-group-item">
+        <p>E-mail: {{member.email}}</p>
+        <p>Name: {{member.firstname}} {{member.lastname}}</p>
+        <p>Role: {{member.role}}</p>
+        <p>Groups: {{member.group}}</p>
+    </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{%endfor%}
+{% endblock %}

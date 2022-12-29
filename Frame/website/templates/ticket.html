@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title%} Home Page {% endblock%}
+
+{% block body %}
+<ul class="list-group">
+    {% for ticket in tickets %}
+    <li class="list-group-item"></li>
+        <p1  id="id">{{ticket.id}}</p1>
+        <p1  id="id">{{id}}</p1>
+        <p1><b>Title:</b> <p1 id="title" class="infoclass">{{ ticket.title }}</p1></p1>
+        <p1><b>Description:</b><p1 id="body"class="infoclass"> {{ ticket.body }}</p1></p1>
+        <p1><b>Ticket Owner:</b><p1 id="owner"class="infoclass">{{ ticket.owner }}</p1></p1>
+        <p1><b>Ticket Submitter:</b><p1 id="submitter"class="infoclass"> {{ ticket.submitter }}</p1></p1>
+        <p1><b>Ticket Type:</b><p1 id="type"class="infoclass"> {{ ticket.type }}</p1></p1>
+        <p1><b>Urgency:</b><p1 id="urgency"class="infoclass"> {{ ticket.urgency }}</p1></p1>
+        <p1><b>org:</b><p1 id="org"class="infoclass"> {{ ticket.org }}</p1>
+
+        {% if user.role == "Editer" %}
+
+        <div class="d-grid gap-2 d-md-block">
+            <button class="btn btn-primary" type="button">Edit</button>
+        </div>
+        
+        {% elif user.role == "Manager" %}
+        <div class="d-grid gap-2 d-md-block">
+            <button class="btn btn-primary" id="edit-button" type="button">Edit</button>
+        </div>
+        <div class="d-grid gap-2 d-md-block">
+            <button class="btn btn-primary" id="end-button" type="button">Done</button>
+        </div>
+        
+         
+        
+        
+        
+                <div class="d-grid gap-2 d-md-block">
+                    <button class="btn btn-primary" type="button" onclick="deleteTicket('{{ticket.id}}')">Delete</button>
+                </div>
+        
+        {% endif %}
+    </li>
+    {% endfor %}
+
+
+
+
+
+    <script>
+        var title = document.getElementById("title");
+        var body = document.getElementById("body");
+        var owner = document.getElementById("owner");
+        var submitter = document.getElementById("submitter");
+        var type = document.getElementById("type");
+        var urgency = document.getElementById("urgency");
+        const edit_button = document.getElementById("edit-button");
+        const end_button = document.getElementById("end-button");
+        var id = document.getElementById("id");
+        
+        
+        
+        
+        edit_button.addEventListener("click", function() {
+            
+          title.contentEditable = true;
+          title.style.backgroundColor = "#dddbdb";
+        
+          body.contentEditable = true;
+          body.style.backgroundColor = "#dddbdb";
+        
+          owner.contentEditable = true;
+          owner.style.backgroundColor = "#dddbdb";
+        
+          submitter.contentEditable = true;
+          submitter.style.backgroundColor = "#dddbdb";
+        
+          type.contentEditable = true;
+         type.style.backgroundColor = "#dddbdb";
+        
+         urgency.contentEditable = true;
+         urgency.style.backgroundColor = "#dddbdb";
+        
+        } );
+        
+        end_button.addEventListener("click", function() {
+          title.contentEditable = false;
+          body.contentEditable = false;
+          owner.contentEditable = false;
+          submitter.contentEditable = false;
+          type.contentEditable = false;
+          urgency.contentEditable = false;
+        
+        
+        
+          function editTicket(ticketId) {
+            fetch("/ticket", {
+              method: "POST",
+              body: JSON.stringify({ ticketId: ticketId, title: title.textContent, body: body.textContent, owner: owner.textContent, submitter: submitter.textContent, type: type.textContent, urgency: urgency.textContent}),
+            }).then((_res) => {
+                window.location.href = "/ticket";
+            });
+          }
+          editTicket(id.textContent);
+        } )
+        
+        
+        
+        </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock%}

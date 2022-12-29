@@ -10,7 +10,7 @@ class User(db.Model, UserMixin):
     lastname = db.Column(db.String(50))
     password = db.Column(db.String(50))
     role = db.Column(db.String(50))
-    groups = db.Column(db.String(50))
+    groups = db.Column(db.String)
     org = db.Column(db.String(20))
     
 
@@ -24,6 +24,7 @@ class Ticket(db.Model):
     type = db.Column(db.String(20))
     owner = db.Column(db.String(20))
     submitter = db.Column(db.String(20))
+    group = db.Column(db.String(20))
     org = db.Column(db.String(20))
 
 

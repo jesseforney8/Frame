@@ -7,28 +7,21 @@
 <ul class="list-group">
     {% for ticket in tickets %}
     <li class="list-group-item"></li>
-        <p1 hidden id="id">{{ticket.id}}</p1>
-        <p1><b>Title:</b> <p1 id="edit" class="infoclass">{{ ticket.title }}</p1></p1>
-        <p1><b>Description:</b><p1 class="infoclass"> {{ ticket.body }}</p1></p1>
-        <p1><b>Ticket Owner:</b> {{ ticket.owner }}</p1>
-        <p1><b>Ticket Submitter:</b> {{ ticket.submitter }}</p1>
-        <p1><b>Ticket Type:</b> {{ ticket.type }}</p1>
-        <p1><b>Urgency:</b> {{ ticket.urgency }}</p1>
-        <p1><b>org:</b> {{ ticket.org }}</p1>
+        <p1  id="id">{{ticket.id}}</p1>
+        <p1><b>Title:</b> {{ ticket.title }}</p1>
+        <p1><b>Description:</b> {{ ticket.body }}</p1>
+        <p1><b>Ticket Owner:</b><p1 id="owner"class="infoclass">{{ ticket.owner }}</p1></p1>
+        <p1><b>Ticket Submitter:</b><p1 id="submitter"class="infoclass"> {{ ticket.submitter }}</p1></p1>
+        <p1><b>Ticket Type:</b><p1 id="type"class="infoclass"> {{ ticket.type }}</p1></p1>
+        <p1><b>Urgency:</b><p1 id="urgency"class="infoclass"> {{ ticket.urgency }}</p1></p1>
 
-        {% if user.role == "Editer" %}
 
-        <div class="d-grid gap-2 d-md-block">
-            <button class="btn btn-primary" type="button">Edit</button>
-        </div>
         
-        {% elif user.role == "Manager" %}
-        <div class="d-grid gap-2 d-md-block">
-            <button class="btn btn-primary" id="edit-button" type="button">Edit</button>
-        </div>
-        <div class="d-grid gap-2 d-md-block">
-            <button class="btn btn-primary" id="end-button" type="button">Done</button>
-        </div>
+        {% if user.role == "Manager" %}
+        
+        <button class="btn btn-primary" id="btn_{{ticket.id}}" onclick="GotoTicket('{{ticket.id}}')">test</button>
+         
+        
         
         
                 <div class="d-grid gap-2 d-md-block">
@@ -45,55 +38,29 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
-var paragraph = document.getElementById("edit");
-const edit_button = document.getElementById("edit-button");
-const end_button = document.getElementById("end-button");
-var id = document.getElementById("id");
-
-console.log(paragraph.textContent);
-
-
-
-edit_button.addEventListener("click", function() {
-    
-  paragraph.contentEditable = true;
-  paragraph.style.backgroundColor = "#dddbdb";
-} );
-
-end_button.addEventListener("click", function() {
-  paragraph.contentEditable = false;
-
-
-
-  function editTicket(ticketId) {
-    fetch("/tickets", {
-      method: "POST",
-      body: JSON.stringify({ ticketId: ticketId, title: paragraph.textContent}),
-    }).then((_res) => {
-        window.location.href = "/tickets";
-    });
-  }
-  editTicket(id.textContent);
-} )
-
-
-
+function GotoTicket(ticketId) {
+            fetch("/tickets", {
+              method: "POST",
+              body: JSON.stringify({ ticketId: ticketId}),
+            }).then((_res) => {
+                window.location.href = "/ticket";
+            });
+          }
+        
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 {% endblock %}

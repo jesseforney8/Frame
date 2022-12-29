@@ -1,10 +1,12 @@
-from flask import Blueprint, render_template, request, flash, jsonify
+from flask import Blueprint, render_template, request, flash, jsonify, session
 from flask_login import login_required, current_user
 from models import Ticket, roles, User
 from __init__ import db
 import json
 
+
 views = Blueprint("views", __name__)
+
 
 @views.route("/", methods=["POST", "GET"])
 @login_required
@@ -49,14 +51,46 @@ def home():
 def tickets():
     if request.method == "POST":
         ticket = json.loads(request.data)
+
+        ticketId = ticket["ticketId"]
+        session["id"] = ticketId       
+
+        return jsonify({})
+        
+
+    return render_template("tickets.html", user=current_user, tickets=Ticket.query.filter_by(org=current_user.org))
+
+
+@views.route(f"/ticket", methods=["POST", "GET"])
+@login_required
+def ticket():
+    if request.method == "POST":
+        ticket = json.loads(request.data)
+
         ticketId = ticket["ticketId"]
         tickettitle = ticket["title"]
+        ticketbody = ticket["body"]
+        ticketowner = ticket["owner"]
+        ticketsubmitter = ticket["submitter"]
+        tickettype = ticket["type"]
+        ticketurgency = ticket["urgency"]
+        
+
         ticket = Ticket.query.get(ticketId)
+
+        ticket.owner = ticketowner
         ticket.title = tickettitle
+        ticket.body = ticketbody
+        ticket.submitter = ticketsubmitter
+        ticket.type = tickettype
+        ticket.urgency = ticketurgency
+
         db.session.commit()
         return jsonify({})
+    
+    return render_template("/ticket.html", user=current_user, tickets=Ticket.query.filter_by(id=session.get("id")))
 
-    return render_template("tickets.html", user=current_user, tickets=Ticket.query.filter_by(org="lantuesday.com"))
+    
 
 @views.route("/delete-ticket", methods=["POST"])
 def delete_ticket():
@@ -75,11 +109,11 @@ def members():
     if request.method == "POST":
         email = request.form.get("email")
         user = User.query.filter_by(email=email).first()
-        print(email)
+        
         if user.org == "":
             user.org = current_user.org
             db.session.commit()
-            print(user.org, current_user.org)
+            
         elif user.org == current_user.org:
             pass
         else:
@@ -87,3 +121,45 @@ def members():
 
 
     return render_template("members.html", user=current_user, members=User.query.filter_by(org=current_user.org))
+
+
+@views.route("/removeorg", methods=["POST"])
+@login_required
+def removeorg():
+    if request.method == "POST":
+        usersubmit = json.loads(request.data)
+        email = usersubmit["email"]
+        
+        user = User.query.filter_by(email=email).first()
+        user.org = ""
+        
+        db.session.commit()
+        return jsonify({})
+
+@views.route("/changerole", methods=["POST"])
+@login_required
+def changerole():
+    if request.method == "POST":
+        usersubmit = json.loads(request.data)
+        email = usersubmit["email"]
+        role = usersubmit["role"]
+        
+        user = User.query.filter_by(email=email).first()
+        user.role = role
+        
+        db.session.commit()
+        return jsonify({})
+
+@views.route("/addgroup", methods=["POST"])
+@login_required
+def addgroup():
+    if request.method == "POST":
+        usersubmit = json.loads(request.data)
+        group = usersubmit["group"]
+        user = usersubmit["email"]
+        print(user, group)
+        
+        user.groups = group
+        
+        db.session.commit()
+        return jsonify({})

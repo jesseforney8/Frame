@@ -9,16 +9,28 @@
     <button type="submit" id="btn">Add User</button>
 </form
 
+<h3><b>Groups in Org</b></h3> <br>
+
+<input id="grp"><button type="button" onclick="addgroup('{{user.email}}')">Create Group</button> 
+
+
 {%for member in members%}
 <ul class="list-group">
     <li class="list-group-item">
         <p>E-mail: {{member.email}}</p>
         <p>Name: {{member.firstname}} {{member.lastname}}</p>
         <p>Role: {{member.role}}</p>
-        <p>Groups: {{member.group}}</p>
+        <p>Groups: {{member.groups}}</p>
     </li>
 </ul>
-
+<select class="form-select" aria-label="Default select example" id="select{{member.email}}" onchange="role1('{{member.email}}', 'select{{member.email}}')">
+    <option selected>Select New Role</option>
+    <option value="Reader">Reader</option>
+    <option value="Editor">Editor</option>
+    <option value="Manager">Manager</option>
+  </select>
+<button type="button" id="changegroups">Change Groups</button>
+<button type="button" id="remove" onclick="remove('{{member.email}}')">Remove from Organization</button>
 
 
 
@@ -41,4 +53,59 @@
 
 
 {%endfor%}
+
+
+
+
+<script>
+var crole = document.getElementById("changerole");
+var cgroup = document.getElementById("changegroups");
+
+function remove(email){
+    fetch("/removeorg", {
+              method: "POST",
+              body: JSON.stringify({ email: email}),
+            }).then((_res) => {
+                window.location.href = "/members";
+            });
+          
+}
+
+function role1(email, id){
+v = document.getElementById(id).value;
+
+
+    fetch("/changerole", {
+              method: "POST",
+              body: JSON.stringify({ email: email, role: v}),
+            }).then((_res) => {
+                window.location.href = "/members";
+            });
+          
+}
+
+function addgroup(user){
+var group = document.getElementById("grp")
+console.log(group.value)
+    fetch("/addgroup", {
+              method: "POST",
+              body: JSON.stringify({ group: group.value, email: user}),
+           }).then((_res) => {
+                window.location.href = "/members";
+            });
+          
+}
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
 {% endblock %}

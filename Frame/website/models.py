@@ -12,6 +12,7 @@ class User(db.Model, UserMixin):
     role = db.Column(db.String(50))
     org = db.Column(db.String(20))
     group_id = db.Column(db.Integer, db.ForeignKey("groups.id"))
+    goop = db.Column(db.String(1000))
     
 
 class Ticket(db.Model):

@@ -10,8 +10,8 @@ class User(db.Model, UserMixin):
     lastname = db.Column(db.String(50))
     password = db.Column(db.String(50))
     role = db.Column(db.String(50))
-    groups = db.Column(db.String)
     org = db.Column(db.String(20))
+    group_id = db.Column(db.Integer, db.ForeignKey("groups.id"))
     
 
 class Ticket(db.Model):
@@ -26,6 +26,19 @@ class Ticket(db.Model):
     submitter = db.Column(db.String(20))
     group = db.Column(db.String(20))
     org = db.Column(db.String(20))
+
+class Group(db.Model):
+    __tablename__ = 'groups'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=True)
+    org = db.Column(db.String(20))
+    users = db.relationship("User", backref="group")
+
+
+
+
+
 
 
 roles = {"r": "Reader", "e": "Editor", "m": "Manager"}

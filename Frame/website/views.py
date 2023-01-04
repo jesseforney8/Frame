@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, jsonify, session
 from flask_login import login_required, current_user
-from models import Ticket, roles, User
+from models import Ticket, roles, User, Group
 from __init__ import db
 import json
 
@@ -120,7 +120,7 @@ def members():
             pass
 
 
-    return render_template("members.html", user=current_user, members=User.query.filter_by(org=current_user.org))
+    return render_template("members.html", user=current_user, members=User.query.filter_by(org=current_user.org), groups=Group.query.filter_by(org=current_user.org))
 
 
 @views.route("/removeorg", methods=["POST"])
@@ -157,9 +157,9 @@ def addgroup():
         usersubmit = json.loads(request.data)
         group = usersubmit["group"]
         user = usersubmit["email"]
-        print(user, group)
         
-        user.groups = group
-        
+        grp = Group(name=group, org=current_user.org)
+
+        db.session.add(grp)
         db.session.commit()
         return jsonify({})

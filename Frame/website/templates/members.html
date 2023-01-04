@@ -10,6 +10,9 @@
 </form
 
 <h3><b>Groups in Org</b></h3> <br>
+{%for group in groups%}
+<p>{{group.name}}</p>
+{%endfor%}
 
 <input id="grp"><button type="button" onclick="addgroup('{{user.email}}')">Create Group</button> 
 

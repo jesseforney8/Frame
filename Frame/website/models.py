@@ -1,6 +1,14 @@
 from __init__ import db   
 from flask_login import UserMixin
 
+
+
+user_groups = db.Table("user_groups",
+    db.Column("user_id", db.Integer, db.ForeignKey("users.id")),
+    db.Column("group_id", db.Integer, db.ForeignKey("groups.id"))
+
+)
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -11,8 +19,8 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(50))
     role = db.Column(db.String(50))
     org = db.Column(db.String(20))
-    group_id = db.Column(db.Integer, db.ForeignKey("groups.id"))
-    
+    # group_id = db.Column(db.Integer, db.ForeignKey("groups.id"))
+    groups = db.relationship("Group", secondary=user_groups, backref="groups")
 
 class Ticket(db.Model):
     __tablename__ = 'tickets'
@@ -33,7 +41,7 @@ class Group(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True)
     org = db.Column(db.String(20))
-    users = db.relationship("User", backref="group")
+    # users = db.relationship("User", backref="group")
 
 
 

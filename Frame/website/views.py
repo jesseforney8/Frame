@@ -159,7 +159,7 @@ def addgroup():
         user = usersubmit["email"]
         
         grp = Group(name=group, org=current_user.org)
-
+        current_user.groups.append(grp)
         db.session.add(grp)
         db.session.commit()
         return jsonify({})

@@ -1,37 +1,28 @@
-{% extends "base.html" %}
+{% extends "baselogin.html" %}
 
 {% block title%} Sign Up {% endblock%}
 
 {% block body %}
 <form method="POST">
-    <div class="mb-3">
-      <label for="email" class="form-label">Email address</label>
-      <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
-    </div>
-    <div class="mb-3">
-        <label for="firstname" class="form-label">First Name</label>
-      <input type="firstname" class="form-control" id="firstname" name="firstname">
-      <label for="lastname" class="form-label">Last Name</label>
-      <input type="lastname" class="form-control" id="lastname" name="lastname">
-      <label for="password1" class="form-label">Password</label>
-      <input type="password1" class="form-control" id="password1" name="password1">
-      <label for="password2" class="form-label">Confirm Password</label>
-      <input type="password2" class="form-control" id="password2" name="password2">
-    </div>
-    <div class="btn-group" role="group" aria-label="Basic example">
-      <h2>Are you starting an organization?</h2>
-      <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
-        <label class="btn btn-outline-primary" for="btnradio1">Yes</label>
-      
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked>
-        <label class="btn btn-outline-primary" for="btnradio2">No</label>
-        <label hidden for="org" id="label1" class="form-label">organization</label>
-      <input hidden type="org" id="input1"class="form-control" id="org" name="org">
+  <h3>Sign Up</h3>
   
-      </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Register</button>
+  <p id="email1">E-mail</p>
+  <input type="text" id="email" name="email">
+  
+  <p class="name"> First Name</p>
+  <input type="text" name="firstname" id="firstname"> <br>
+  
+  <p class="name"> Last Name</p>
+  <input type="text" name="lastname" id="lastname"> <br>
+
+  <p id="pass"> Password</p>
+  <input type="password" name="password1" id="password1"> <br>
+  
+  <p id="cpass"> Confirm Password</p>
+  <input type="password" name="password2" id="password2"> <br>
+
+  <button type="submit">Register</button>
+
   </form>
 
 

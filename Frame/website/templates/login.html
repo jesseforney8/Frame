@@ -1,19 +1,32 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
 
-{% block title%} Login {% endblock%}
 
-{% block body %}
+<div class="framelogin">
+    <img src="../static/logo-no-background1.png">
+
+</div>
 <form method="POST">
-    <div class="mb-3">
-      <label for="email" class="form-label">Email address</label>
-      <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
-    </div>
-    <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
-      <input type="password" class="form-control" id="password" name="password">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+<div class="login">
+    <h3>Login</h3>
+    <p id="email1">E-mail</p>
+    <input type="text" id="email" name="email">
+    <p id="password1"> Password</p>
+    <input type="password" name="password" id="password"> <br>
+    <a id="forgot" href="#">Forgot Password</a> <br>
+    <button type="submit">LOGIN</button>
   </form>
+    <p id="signup">Or sign up using...</p>
+    <button>Sign Up</button>
+</div>
 
 
 
@@ -24,10 +37,3 @@
 
 
 
-
-
-
-
-
-
-{% endblock %}

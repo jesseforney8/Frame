@@ -145,11 +145,11 @@
     height: 100%;
     border: 1px solid rgba(255, 255, 255, .5);
   }
-  #email {
+  #email1 {
     position: relative;
     left: -100px;
   }
-  #password{
+  #password1{
     position: relative;
     left: -90px;
   }

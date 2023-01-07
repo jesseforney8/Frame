@@ -36,7 +36,7 @@
             <button id="edit-button" type="button">Edit</button>
         
         
-            <button  id="end-button" type="button">Done</button>
+            <button hidden id="end-button" type="button">Done</button>
         
         
             <button type="button" onclick="deleteTicket('{{ticket.id}}')">Delete</button>
@@ -84,6 +84,8 @@
         
          urgency.contentEditable = true;
          urgency.style.backgroundColor = "#dddbdb";
+
+        document.getElementById("end-button").hidden = false;
         
         } );
         
@@ -94,6 +96,7 @@
           submitter.contentEditable = false;
           type.contentEditable = false;
           urgency.contentEditable = false;
+          document.getElementById("end-button").hidden = true;
         
         
         

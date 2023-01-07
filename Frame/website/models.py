@@ -46,6 +46,7 @@ class Ticket(db.Model):
     projected_time = db.Column(db.String(20))
     spent_time = db.Column(db.String(20))
     ticket_history = db.Column(db.String(20))
+    org = db.Column(db.String(20))
 
 class Group(db.Model):
     __tablename__ = 'groups'
@@ -60,5 +61,5 @@ class Group(db.Model):
 
 
 
-roles = {"r": "Reader", "e": "Editor", "a": "Administrator", "sa": "Super Administator"}
+roles = {"r": "Reader", "e": "Editor", "a": "Administrator", "sa": "Super Administrator"}
 

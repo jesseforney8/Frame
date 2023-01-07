@@ -57,8 +57,9 @@ def tickets():
 
         return jsonify({})
         
-
+    
     return render_template("tickets.html", user=current_user, tickets=Ticket.query.filter_by(org=current_user.org))
+    
 
 
 @views.route(f"/ticket", methods=["POST", "GET"])

@@ -12,7 +12,7 @@
 
 {%for member in members%}
 <ul class="list-group">
-    <li class="list-group-item">
+    
         <p>E-mail: {{member.email}}</p>
         <p>Name: {{member.firstname}} {{member.lastname}}</p>
         <p>Role: {{member.role}}</p>
@@ -24,7 +24,7 @@
         <p>Groups: {{glist|join(", ")}}</p>
         {% set glist = [] %}
         {{glist}}
-    </li>
+    
 </ul>
 <select class="form-select" aria-label="Default select example" id="select{{member.email}}" onchange="role1('{{member.email}}', 'select{{member.email}}')">
     <option selected>Select New Role</option>

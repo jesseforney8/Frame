@@ -163,3 +163,15 @@ def addgroup():
         db.session.add(grp)
         db.session.commit()
         return jsonify({})
+
+@views.route("/createorg", methods=["POST"])
+@login_required
+def createorg():
+    if request.method == "POST":
+        usersubmit = json.loads(request.data)
+        print("yaya")
+        org = usersubmit["org"]
+        print(org)
+        current_user.org = org
+        db.session.commit()
+        return jsonify({})

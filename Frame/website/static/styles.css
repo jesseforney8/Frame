@@ -1,0 +1,242 @@
+.topnav {
+    background-color: rgba(61, 54, 54, 0.8);
+    overflow: hidden;
+    
+    border-radius: 5px;
+  }
+  .topnav a {
+      float: left;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+  }
+  .topnav a:hover {
+      opacity: 0.5;
+  
+  }
+  #about {
+      float: right;
+  }
+  
+  
+  
+  .subscribe {
+      background-color: #ba54f5;
+      Color: white;
+      border: none;
+      height: 30px;
+      width: 150px;
+      border-radius: 2px;
+      cursor: pointer;
+      margin-right: 8px; 
+      transition: opacity 0.15s;
+      display: block;
+      margin-bottom: 10px;
+  }
+  
+  .subscribe:hover {
+      opacity: 0.5;
+  }
+  .subscribe:active {
+      opacity: 0.2;   
+  }
+  
+  .join {
+      background-color: #ba54f5;
+      color: blue;
+      border-color: blue;
+      border-width: 1px;
+      height: 30px;
+      width: 75px;
+      border-radius: 2px;
+      cursor: pointer;
+      margin-right: 8px;
+      transition: background-color 1s,
+      color 1s;
+      display: block;
+      margin-bottom: 10px;
+  }
+  .join:hover {
+      background-color: blue;
+      color: white;
+  }
+  .join:active {
+      opacity: 0.3;
+  }
+  
+  .tweet {
+      background-color: #ba54f5;
+      color: white;
+      border: none;
+      height: 30px;
+      width: 75px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: box-shadow 0.15s;
+      display: block;
+      margin-bottom: 10px;
+  
+  }
+  .tweet:hover {
+      box-shadow: 5px 5px 10px black;
+  
+  }
+  
+  .new {
+      background-color: #ba54f5;
+      color: white;
+      border: none;
+      height: 30px;
+      width: 75px;
+      cursor: pointer;
+      border-radius: 5px;
+      display: block;
+      
+  }
+  
+  html {
+    background: linear-gradient(to bottom right, #33ccff -40%, #ff99cc 130%);
+    height: 100%;
+  
+  }
+  .buttons {
+      background-color: #525f7f;
+      padding: 5px;
+      border-radius: 10px;
+      display: inline-block;
+      width: 300px;
+  
+  }
+
+  .footer {
+    color: white;
+    
+    width: 99%;
+    bottom: 0;
+    position: absolute;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    
+  }
+  #author {
+    float: left;
+  }
+  #copywrite {
+    float: right;
+  }
+  p, h3 {
+    color: white;
+    font-family: Corbel light;
+    font-size: 16pt;
+  }
+
+  .login {
+    background-color: rgba(61, 54, 54, 0.15);
+    margin: auto;
+    width: 20%;
+    padding: 10px;
+    text-align: center;
+    margin-top: 10px;
+    border-radius: 10px;
+    border-style: solid;
+    height: 100%;
+    border: 1px solid rgba(255, 255, 255, .5);
+  }
+  #email {
+    position: relative;
+    left: -100px;
+  }
+  #password{
+    position: relative;
+    left: -90px;
+  }
+  #forgot {
+    position: relative;
+    left: 85px;
+    font-size: 12px;
+    text-decoration: none;
+    color: white;
+    font-family: Corbel light;
+
+  }
+  button {
+    background: rgba(61, 54, 54, 0.8);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 150px;
+    height: 50px;
+    transition: opacity 0.15s;
+    margin-top: 15px;
+    margin-bottom: 8px ;
+  }
+  
+  button:hover {
+    opacity: 0.5;;
+  }
+  button:active {
+    opacity: 0.15;;
+  }
+  input {
+    border-radius: 5px;
+    border: none;
+    height: 30px;
+    width: 250px;
+    opacity: .85;
+    
+    
+    
+    
+   
+    
+  }
+  #signup {
+    padding-top: 150px;
+  }
+  .framelogin {
+    text-align: center;
+
+  }
+
+  .default1 {
+    text-align: start;
+    background-color:white;
+    border:3px solid rgba(61, 54, 54, 0.8);
+    margin: auto;
+    width: 40%;
+    border-radius: 5px;
+    margin-top: 8px;
+
+  }
+  .default1 p {
+color: black;
+border-bottom: 2px solid black;
+
+  }
+
+  select {
+    text-align: center;
+    background-color: lightslategray;
+    border-radius: 10px;
+    cursor: pointer;
+    width:200px;
+    overflow-y: auto;
+    border: 3px solid rgba(61, 54, 54, 0.8);
+    padding-bottom: 0;
+
+  }
+
+  .selectit {
+    text-align: center;
+
+  }
+  option {
+    font-size: 16pt;
+    border-bottom: 1px solid black; 
+    
+  }
+  

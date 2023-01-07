@@ -10,13 +10,16 @@
 <body>
     <div class="topnav">
         <a class="active" href="/">Frame</a>
+        {% if user.org != "" %}
         <a href="/">Create</a>
         <a href="/tickets">tickets</a>
         <a href="/settings">settings</a>
         <a href="/role">role</a>
         <a href="/members">Members</a>
         <a href="/logout">logout</a>
+        {%endif%}
       </div>
+      
 
 <div class="default1">
         {%block body%}{%endblock%}

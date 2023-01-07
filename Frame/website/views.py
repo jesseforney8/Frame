@@ -118,10 +118,10 @@ def members():
             pass
         else:
             pass
+        
+    return render_template("members.html", user=current_user, members=User.query.filter_by(org=current_user.org), groups=Group.query.filter_by(org=current_user.org), glist = [])
 
-
-    return render_template("members.html", user=current_user, members=User.query.filter_by(org=current_user.org), groups=Group.query.filter_by(org=current_user.org))
-
+    
 
 @views.route("/removeorg", methods=["POST"])
 @login_required
@@ -159,7 +159,7 @@ def addgroup():
         user = usersubmit["email"]
         
         grp = Group(name=group, org=current_user.org)
-        current_user.groups.append(grp)
+        #current_user.groups.append(grp)
         db.session.add(grp)
         db.session.commit()
         return jsonify({})

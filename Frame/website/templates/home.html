@@ -18,22 +18,21 @@
 
 <form method="POST">
 
-    <div class="form-floating mb-3">
-        <input type="title" class="form-control" id="title", name="title">
         <label for="title">Title</label>
-    </div>
-    <div class="form-floating">
-        <input type="body" class="form-control" id="body" name="body">
+        <input type="title" class="settinginput" id="title", name="title">
+    
+    
+        
         <label for="body">Body</label>
-    </div>
-    <div class="form-floating">
-        <input type="owner" class="form-control" id="owner" name="owner">
+        <input type="body" class="settinginput" id="body" name="body">
+    
+        
         <label for="owner">Owner</label>
-    </div>
-    <div class="form-floating">
-        <input type="submitter" class="form-control" id="submitter" name="submitter">
+        <input type="owner" class="settinginput" id="owner" name="owner">
+    
+        
         <label for="submitter">Submitter</label>
-    </div>
+        <input type="submitter" class="settinginput" id="submitter" name="submitter">
 
     
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="urgency" name="urgency">
@@ -49,7 +48,8 @@
         <option value="bug">Bug</option>
         <option value="project">Project</option>
     </select>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <br>
+    <button type="submit">Submit</button>
 
 </form>
 {%endif%}

@@ -5,38 +5,32 @@
 {% block body %}
 <ul class="list-group">
     {% for ticket in tickets %}
-    <li class="list-group-item"></li>
-        <p1  id="id">{{ticket.id}}</p1>
-        <p1  id="id">{{id}}</p1>
-        <p1><b>Title:</b> <p1 id="title" class="infoclass">{{ ticket.title }}</p1></p1>
-        <p1><b>Description:</b><p1 id="body"class="infoclass"> {{ ticket.body }}</p1></p1>
-        <p1><b>Ticket Owner:</b><p1 id="owner"class="infoclass">{{ ticket.owner }}</p1></p1>
-        <p1><b>Ticket Submitter:</b><p1 id="submitter"class="infoclass"> {{ ticket.submitter }}</p1></p1>
-        <p1><b>Ticket Type:</b><p1 id="type"class="infoclass"> {{ ticket.type }}</p1></p1>
-        <p1><b>Urgency:</b><p1 id="urgency"class="infoclass"> {{ ticket.urgency }}</p1></p1>
-        <p1><b>org:</b><p1 id="org"class="infoclass"> {{ ticket.org }}</p1>
+        <p2  id="id">{{ticket.id}}</p2><br>
+        <p2  id="id">{{id}}</p2><br>
+        <p2><b>Title:</b> <p2 id="title" class="infoclass">{{ ticket.title }}</p2></p2> <br>
+        <p2><b>Description:</b><p2 id="body"class="infoclass"> {{ ticket.body }}</p2></p2><br>
+        <p2><b>Ticket Owner:</b><p2 id="owner"class="infoclass">{{ ticket.owner }}</p2></p2><br>
+        <p2><b>Ticket Submitter:</b><p2 id="submitter"class="infoclass"> {{ ticket.submitter }}</p2></p2><br>
+        <p2><b>Ticket Type:</b><p2 id="type"class="infoclass"> {{ ticket.type }}</p2></p2><br>
+        <p2><b>Urgency:</b><p2 id="urgency"class="infoclass"> {{ ticket.urgency }}</p2></p2><br>
+        <p2><b>Org:</b><p2 id="org"class="infoclass"> {{ ticket.org }}</p2><br>
 
         {% if user.role == "Editer" %}
 
-        <div class="d-grid gap-2 d-md-block">
-            <button class="btn btn-primary" type="button">Edit</button>
-        </div>
+        
+            <button type="button">Edit</button>
+        
         
         {% elif user.role == "Manager" %}
-        <div class="d-grid gap-2 d-md-block">
-            <button class="btn btn-primary" id="edit-button" type="button">Edit</button>
-        </div>
-        <div class="d-grid gap-2 d-md-block">
-            <button class="btn btn-primary" id="end-button" type="button">Done</button>
-        </div>
         
-         
+            <button id="edit-button" type="button">Edit</button>
         
         
+            <button  id="end-button" type="button">Done</button>
         
-                <div class="d-grid gap-2 d-md-block">
-                    <button class="btn btn-primary" type="button" onclick="deleteTicket('{{ticket.id}}')">Delete</button>
-                </div>
+        
+            <button type="button" onclick="deleteTicket('{{ticket.id}}')">Delete</button>
+                
         
         {% endif %}
     </li>

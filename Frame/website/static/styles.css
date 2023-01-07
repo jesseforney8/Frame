@@ -99,6 +99,7 @@
   html {
     background: linear-gradient(to bottom right, #33ccff -40%, #ff99cc 130%);
     height: 100%;
+    background-attachment:fixed;
   
   }
   .buttons {
@@ -204,6 +205,17 @@
     width: 250px;
     opacity: .85;
     border: 1px solid black;
+    display: block;
+
+  }
+  .settinginput1 {
+    border-radius: 5px;
+    border: none;
+    height: 30px;
+    width: 250px;
+    opacity: .85;
+    border: 1px solid black;
+
   }
   #signup {
     padding-top: 150px;
@@ -238,6 +250,7 @@ border-bottom: 2px solid black;
     overflow-y: auto;
     border: 3px solid rgba(61, 54, 54, 0.8);
     padding-bottom: 0;
+    margin-top: 8px;
 
   }
 
@@ -250,4 +263,6 @@ border-bottom: 2px solid black;
     border-bottom: 1px solid black; 
     
   }
-  
+  p1 {
+    display: block;
+  }

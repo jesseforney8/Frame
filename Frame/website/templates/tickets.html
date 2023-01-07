@@ -6,30 +6,24 @@
 
 <ul class="list-group">
     {% for ticket in tickets %}
-    <li class="list-group-item"></li>
+    
         <p1  id="id">{{ticket.id}}</p1>
         <p1><b>Title:</b> {{ ticket.title }}</p1>
         <p1><b>Description:</b> {{ ticket.body }}</p1>
-        <p1><b>Ticket Owner:</b><p1 id="owner"class="infoclass">{{ ticket.owner }}</p1></p1>
-        <p1><b>Ticket Submitter:</b><p1 id="submitter"class="infoclass"> {{ ticket.submitter }}</p1></p1>
-        <p1><b>Ticket Type:</b><p1 id="type"class="infoclass"> {{ ticket.type }}</p1></p1>
-        <p1><b>Urgency:</b><p1 id="urgency"class="infoclass"> {{ ticket.urgency }}</p1></p1>
+        <p1><b>Ticket Owner:</b>{{ ticket.owner }}</p1>
+        <p1><b>Ticket Submitter:</b> {{ ticket.submitter }}</p1>
+        <p1><b>Ticket Type:</b> {{ ticket.type }}</p1>
+        <p1><b>Urgency:</b> {{ ticket.urgency }}</p1>
 
-
+        <button  id="btn_{{ticket.id}}" onclick="GotoTicket('{{ticket.id}}')">View</button>
         
         {% if user.role == "Manager" %}
-        
-        <button class="btn btn-primary" id="btn_{{ticket.id}}" onclick="GotoTicket('{{ticket.id}}')">test</button>
          
-        
-        
-        
-                <div class="d-grid gap-2 d-md-block">
-                    <button class="btn btn-primary" type="button" onclick="deleteTicket('{{ticket.id}}')">Delete</button>
-                </div>
+        <button  type="button" onclick="deleteTicket('{{ticket.id}}')">Delete</button>
+                
         
         {% endif %}
-    </li>
+    
     {% endfor %}
 
 

@@ -8,9 +8,9 @@ import json
 views = Blueprint("views", __name__)
 
 
-@views.route("/", methods=["POST", "GET"])
+@views.route("/create", methods=["POST", "GET"])
 @login_required
-def home():
+def create():
     if request.method == "POST":
         title = request.form.get("title")
         body = request.form.get("body")
@@ -44,7 +44,7 @@ def home():
 
 
 
-    return render_template("home.html", user=current_user)
+    return render_template("create.html", user=current_user)
 
 @views.route("/tickets", methods=["POST", "GET"])
 @login_required
@@ -118,7 +118,7 @@ def members():
             pass
         else:
             pass
-        
+
     return render_template("members.html", user=current_user, members=User.query.filter_by(org=current_user.org), groups=Group.query.filter_by(org=current_user.org), glist = [])
 
     
@@ -175,3 +175,7 @@ def createorg():
         current_user.org = org
         db.session.commit()
         return jsonify({})
+@views.route("/", methods=["POST", "GET"])
+@login_required
+def home():
+    return render_template("home.html", user=current_user)

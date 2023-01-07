@@ -156,10 +156,10 @@ def addgroup():
     if request.method == "POST":
         usersubmit = json.loads(request.data)
         group = usersubmit["group"]
-        user = usersubmit["email"]
+        
         
         grp = Group(name=group, org=current_user.org)
-        #current_user.groups.append(grp)
+        
         db.session.add(grp)
         db.session.commit()
         return jsonify({})
@@ -169,10 +169,9 @@ def addgroup():
 def createorg():
     if request.method == "POST":
         usersubmit = json.loads(request.data)
-        print("yaya")
         org = usersubmit["org"]
-        print(org)
         current_user.org = org
+        current_user.role = roles["sa"]
         db.session.commit()
         return jsonify({})
 @views.route("/", methods=["POST", "GET"])

@@ -21,7 +21,7 @@
             <button type="button">Edit</button>
         
         
-        {% elif user.role == "Manager" %}
+        {% elif user.role == "Administrator" %}
         
             <button id="edit-button" type="button">Edit</button>
         
@@ -30,6 +30,17 @@
         
         
             <button type="button" onclick="deleteTicket('{{ticket.id}}')">Delete</button>
+
+            {% elif user.role == "Super Administrator" %}
+        
+            <button id="edit-button" type="button">Edit</button>
+        
+        
+            <button  id="end-button" type="button">Done</button>
+        
+        
+            <button type="button" onclick="deleteTicket('{{ticket.id}}')">Delete</button>
+          
                 
         
         {% endif %}

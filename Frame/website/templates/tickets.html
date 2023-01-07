@@ -17,7 +17,11 @@
 
         <button  id="btn_{{ticket.id}}" onclick="GotoTicket('{{ticket.id}}')">View</button>
         
-        {% if user.role == "Manager" %}
+        {% if user.role == "Administrator" %}
+         
+        <button  type="button" onclick="deleteTicket('{{ticket.id}}')">Delete</button>
+
+        {% elif user.role == "Super Administrator" %}
          
         <button  type="button" onclick="deleteTicket('{{ticket.id}}')">Delete</button>
                 

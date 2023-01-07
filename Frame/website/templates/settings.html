@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base1.html" %}
 
 {% block title%} Settings {% endblock%}
 
@@ -9,9 +9,9 @@
 <form method="POST">
     <div class="mb-3">
       <label for="newpassword" class="form-label">New Password</label>
-      <input type="newpassword" class="form-control" id="newpassword" name="newpassword">
+      <input type="newpassword" class="settinginput" id="newpassword" name="newpassword"> <br> <br>
       <label for="newpassword2" class="form-label">Confirm New Password</label>
-      <input type="newpassword2" class="form-control" id="newpassword2" name="newpassword2">
+      <input type="newpassword2" class="settinginput" id="newpassword2" name="newpassword2">
     </div>
     
     <button type="submit" class="btn btn-primary">Change Password</button>

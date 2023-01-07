@@ -196,11 +196,14 @@
     width: 250px;
     opacity: .85;
     
-    
-    
-    
-   
-    
+  }
+  .settinginput {
+    border-radius: 5px;
+    border: none;
+    height: 30px;
+    width: 250px;
+    opacity: .85;
+    border: 1px solid black;
   }
   #signup {
     padding-top: 150px;

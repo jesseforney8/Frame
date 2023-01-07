@@ -119,9 +119,10 @@ def members():
             pass
         else:
             pass
-
-    return render_template("members.html", user=current_user, members=User.query.filter_by(org=current_user.org), groups=Group.query.filter_by(org=current_user.org), glist = [])
-
+    if current_user.role == roles["a"] or current_user.role == roles["sa"]:
+        return render_template("members.html", user=current_user, members=User.query.filter_by(org=current_user.org), groups=Group.query.filter_by(org=current_user.org), glist = [])
+    else:
+        return render_template("home.html", user=current_user)
     
 
 @views.route("/removeorg", methods=["POST"])

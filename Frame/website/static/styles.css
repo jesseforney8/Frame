@@ -149,7 +149,15 @@
     position: relative;
     left: -100px;
   }
-  #password1{
+  #pass{
+    position: relative;
+    left: -90px;
+  }
+  .name {
+    position: relative;
+    left: -90px;
+  }
+  #cpass {
     position: relative;
     left: -90px;
   }

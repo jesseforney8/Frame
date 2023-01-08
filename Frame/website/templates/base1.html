@@ -16,8 +16,10 @@
             <div class="dropdowninfo" id="dropdowninfo">
                 <button class="drplink"><a href="/settings">settings</a></button>
                 <button class="drplink"><a href="/logout">logout</a></button>
+                {%if user.org != ""%}
                 <button class="drplink"><a href="/role">role</a></button>
                 <button id="memberbtn" class="drplink"><a id="memberbtn1" href="/members">Members</a></button>
+                {%endif%}
             </div>
         </div>
         {%if user.org != ""%}

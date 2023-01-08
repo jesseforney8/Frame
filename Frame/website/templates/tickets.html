@@ -4,13 +4,16 @@
 
 {%block navbar %}
 <div class="searchbar">
+  
   <div class="dropdown">
     <button class="dropbtn" onclick="dropdown1()">Filter</button>
     <div class="dropdowninfo" id="dropdowninfo1">
-        <button class="drplink">test1</button>
-        <button class="drplink">test2</button>
+        <button class="drplink" id="searchowner" onclick="add_search()">Owner</button>
+        <button class="drplink" id="searchgroup" onclick="add_search1()">Group</button>
     </div>
-  <input class="search" type="text">
+  <input class="search" type="text" id="filterinput">
+  <input class="search" type="text" id="finalsearch">
+  <button class="dropbtn">Search</button>
 </div>
 </div>
 
@@ -60,6 +63,34 @@ function GotoTicket(ticketId) {
             });
           }
         
+
+function add_search() {
+  let btnval = document.getElementById("searchowner");
+  let finalsearch = document.getElementById("finalsearch");
+  let filterinput = document.getElementById("filterinput");
+  
+  finalsearch.value = btnval.textContent + ": " + filterinput.value;
+  
+}
+
+function add_search1() {
+  let btnval = document.getElementById("searchgroup");
+  let finalsearch = document.getElementById("finalsearch");
+  let filterinput = document.getElementById("filterinput");
+  
+  finalsearch.value = btnval.textContent + ": " + filterinput.value;
+  
+}
+
+
+
+
+
+
+
+
+
+
 </script>
 
 

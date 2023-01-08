@@ -4,9 +4,15 @@
 
 {%block navbar %}
 <div class="searchbar">
-  <button class="dropbtn">Add filter</button>
+  <div class="dropdown">
+    <button class="dropbtn" onclick="dropdown1()">Filter</button>
+    <div class="dropdowninfo" id="dropdowninfo1">
+        <button class="drplink">test1</button>
+        <button class="drplink">test2</button>
+    </div>
   <input class="search" type="text">
 </div>
+
 {%endblock%}
 
 {% block body %}

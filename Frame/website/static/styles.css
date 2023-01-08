@@ -40,6 +40,45 @@ float: right;
     height: 40px;
   }
 
+  #namedropdwn {
+    float: right;
+  }
+/*  drop down styling  ----------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+.dropdowninfo {
+  display: none;
+  position:absolute;
+  
+}
+
+.dropdowninfo a {
+  display: block;
+  position: relative;
+}
+.drplink {
+  display: block;
+  position: relative;
+}
+
+.show {
+  display: block; 
+  right: 0px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   /*  element styling  ----------------------------------------------------------------------------------------------------------------------------------------------------- */
 
   html {

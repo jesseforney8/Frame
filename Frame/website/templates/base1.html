@@ -10,6 +10,7 @@
 <body>
     <div class="topnav">
         <a class="active" href="/">Frame</a>
+        <a id="namebtn" href="#">{{user.firstname}} {{user.lastname}}</a>
         <a id="logout" href="/logout">logout</a>
         {% if user.org != "" %}
         <a href="/create">Create</a>
@@ -17,9 +18,8 @@
         <a href="/settings">settings</a>
         <a href="/role">role</a>
         <a href="/members">Members</a>
-        <div class="searchbar">
-            <input class="search" value="search ticket" type="text">
-        </div>
+        {% block navbar %} {% endblock %}
+        
         {%endif%}
       </div>
       

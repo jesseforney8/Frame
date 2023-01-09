@@ -7,6 +7,7 @@ import json
 
 views = Blueprint("views", __name__)
 
+# route for the page that creates tickets
 
 @views.route("/create", methods=["POST", "GET"])
 @login_required
@@ -20,6 +21,8 @@ def create():
         submitter= request.form.get("submitter")
         org = current_user.org
         
+        # minimum standard for creating ticket plus the db commit
+
         if len(title) < 5:
             flash("Title too small!", category="error")
         elif len(body) < 5:
@@ -38,13 +41,9 @@ def create():
             db.session.commit()
             flash("Ticket Submitted!", category="success")
 
-
-
-
-
-
-
     return render_template("create.html", user=current_user)
+
+#route for views tickets
 
 @views.route("/tickets", methods=["POST", "GET"])
 @login_required
@@ -57,14 +56,16 @@ def tickets():
 
         return jsonify({})
         
-    
     return render_template("tickets.html", user=current_user, tickets=Ticket.query.filter_by(org=current_user.org))
     
-
+# route for the indiviual ticket
 
 @views.route(f"/ticket", methods=["POST", "GET"])
 @login_required
 def ticket():
+
+    #this is for recieving the json if they edit the ticket
+
     if request.method == "POST":
         ticket = json.loads(request.data)
 
@@ -91,7 +92,7 @@ def ticket():
     
     return render_template("/ticket.html", user=current_user, tickets=Ticket.query.filter_by(id=session.get("id")))
 
-    
+# route to recieve json to delete ticket
 
 @views.route("/delete-ticket", methods=["POST"])
 def delete_ticket():
@@ -104,9 +105,14 @@ def delete_ticket():
             
     return jsonify({})
 
+# route for members page
+
 @views.route("/members", methods=["POST", "GET"])
 @login_required
 def members():
+
+    #recieves json when admin tries to add a user to their org
+
     if request.method == "POST":
         email = request.form.get("email")
         user = User.query.filter_by(email=email).first()
@@ -119,11 +125,16 @@ def members():
             pass
         else:
             pass
+
+            #restricts page access based on role
+
     if current_user.role == roles["a"] or current_user.role == roles["sa"]:
         return render_template("members.html", user=current_user, members=User.query.filter_by(org=current_user.org), groups=Group.query.filter_by(org=current_user.org), glist = [])
     else:
         return render_template("home.html", user=current_user)
     
+
+#route to recieve json to remove user from org
 
 @views.route("/removeorg", methods=["POST"])
 @login_required
@@ -137,6 +148,8 @@ def removeorg():
         
         db.session.commit()
         return jsonify({})
+
+#route to change role of user
 
 @views.route("/changerole", methods=["POST"])
 @login_required
@@ -152,6 +165,8 @@ def changerole():
         db.session.commit()
         return jsonify({})
 
+#route to add group to org        
+
 @views.route("/addgroup", methods=["POST"])
 @login_required
 def addgroup():
@@ -159,12 +174,13 @@ def addgroup():
         usersubmit = json.loads(request.data)
         group = usersubmit["group"]
         
-        
         grp = Group(name=group, org=current_user.org)
         
         db.session.add(grp)
         db.session.commit()
         return jsonify({})
+
+#route to create org and also set original user to SA
 
 @views.route("/createorg", methods=["POST"])
 @login_required
@@ -176,6 +192,9 @@ def createorg():
         current_user.role = roles["sa"]
         db.session.commit()
         return jsonify({})
+
+ #route for homepage
+
 @views.route("/", methods=["POST", "GET"])
 @login_required
 def home():

@@ -1,18 +1,27 @@
-function deleteTicket(ticketId) {
-    fetch("/delete-ticket", {
-      method: "POST",
-      body: JSON.stringify({ ticketId: ticketId }),
-    }).then((_res) => {
-      window.location.href = "/tickets";
-    });
-  }
+//modal for filter button
 
+function openFilterModal() {
+  let modal_filter = document.getElementById("modal-filter");
+  let modal_wrapper = document.getElementById("modal-wrapper-filter");
 
-  function editTicket(ticketId) {
-    fetch("/tickets", {
-      method: "POST",
-      body: JSON.stringify({ ticketId: ticketId, tickettitle: tickettitle, ticketbody: ticketbody, ticketowner: ticketowner, ticketsubmitter: ticketsubmitter}),
-    }).then((_res) => {
-      window.location.href = "/tickets";
-    });
+  modal_filter.style.display = "block";
+  modal_wrapper.style.display = "block";
+}
+
+function closeFilterModal() {
+  let modal_filter = document.getElementById("modal-filter");
+  let modal_wrapper = document.getElementById("modal-wrapper-filter");
+
+  modal_filter.style.display = "none";
+  modal_wrapper.style.display = "none";
+}
+
+let modal_filter = document.getElementById("modal-filter");
+let modal_wrapper = document.getElementById("modal-wrapper-filter");
+
+window.onclick = function(event) {
+  if (event.target == modal_wrapper) {
+    modal_wrapper.style.display = "none";
+    modal_filter.style.display = "none";
   }
+}

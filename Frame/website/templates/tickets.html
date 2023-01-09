@@ -6,7 +6,7 @@
 <div class="searchbar">
   
   <div class="dropdown">
-    <button class="dropbtn" onclick="dropdown1()">Filter</button>
+    <button class="dropbtn" onclick="openFilterModal()" id="filterbtn">Filter</button>
     <div class="dropdowninfo" id="dropdowninfo1">
         <button class="drplink" id="searchowner" onclick="add_search()">Owner</button>
         <button class="drplink" id="searchgroup" onclick="add_search1()">Group</button>
@@ -50,6 +50,20 @@
 
 
 </ul>
+
+
+
+<div class="modal-wrapper" id="modal-wrapper-filter">
+  <div class="modal" id="modal-filter">
+    <h4>test modal</h4>
+    <button id="close-modal" onclick="closeFilterModal()">Close</button>
+
+  </div>
+</div>
+
+
+
+
 
 
 

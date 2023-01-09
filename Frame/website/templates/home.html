@@ -18,38 +18,4 @@
 
 {%endif%}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script>
-    var org = document.getElementById("org");
-    var btn = document.getElementById("btn");
-    
-    btn.addEventListener("click", function(){
-        fetch("/createorg", {
-                  method: "POST",
-                  body: JSON.stringify({org: org.value}),
-                }).then((_res) => {
-                    window.location.href = "/";
-                });
-              })
-    </script>
-
-
-
 {% endblock %}

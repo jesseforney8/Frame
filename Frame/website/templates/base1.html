@@ -10,16 +10,17 @@
 <body>
     <div class="topnav">
         <a class="active" href="/">Frame</a>
-        
-        <div class="dropdown" id="namedropdwn">
-            <button class="dropbtn" onclick="dropdown()">{{user.firstname}} {{user.lastname}}</button>
-            <div class="dropdowninfo" id="dropdowninfo">
-                <button class="drplink"><a href="/settings">settings</a></button>
-                <button class="drplink"><a href="/logout">logout</a></button>
-                {%if user.org != ""%}
-                <button class="drplink"><a href="/role">role</a></button>
-                <button id="memberbtn" class="drplink"><a id="memberbtn1" href="/members">Members</a></button>
-                {%endif%}
+        <div class="dropdown-wrapper">
+            <div class="dropdown" id="namedropdwn">
+                <button class="dropbtn" onclick="dropdown()">{{user.firstname}} {{user.lastname}}</button>
+                <div class="dropdowninfo" id="dropdowninfo">
+                    <button class="drplink"><a href="/settings">settings</a></button>
+                    <button class="drplink"><a href="/logout">logout</a></button>
+                    {%if user.org != ""%}
+                    <button class="drplink"><a href="/role">role</a></button>
+                    <button id="memberbtn" class="drplink"><a id="memberbtn1" href="/members">Members</a></button>
+                    {%endif%}
+                </div>
             </div>
         </div>
         {%if user.org != ""%}

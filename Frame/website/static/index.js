@@ -37,12 +37,12 @@ let dropdowninfo = document.getElementById("dropdowninfo");
 let html1 = document.querySelector("html");
 let body1 = document.querySelector("body");
 
-window.onclick = function(event) {
-  if (event.target == html1) {
-    console.log(dropdowninfo.classList);
-    dropdowninfo.classList.remove("show");
-  }
-}
+//window.onclick = function(event) {
+ // if (event.target == html1) {
+   // console.log(dropdowninfo.classList);
+   // dropdowninfo.classList.remove("show");
+ // }
+//}
 
 // removes user from org
 

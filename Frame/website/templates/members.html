@@ -34,8 +34,21 @@
     <option value="Super Administrator">Super Administrator</option>
   </select>
   
-  
-<button type="button" id="changegroups">Change Groups</button>
+
+<button>Change Groups</button>
+
+ <div hidden class="checkboxdiv">
+    <input type="checkbox" id="test" value="test">
+    <label for="test">test</label> <br>
+    <input type="checkbox" value="test1">
+    <label for="test1">test1</label> <br>
+    <input type="checkbox" value="test2">
+    <label for="test2">test2</label> <br>
+</div> 
+
+
+
+
 <button type="button" id="remove" onclick="remove('{{member.email}}')">Remove</button>
 {%endfor%}
 

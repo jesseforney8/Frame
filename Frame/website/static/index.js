@@ -95,9 +95,7 @@ var urgency = document.getElementById("urgency");
 const edit_button = document.getElementById("edit-button");
 const end_button = document.getElementById("end-button");
 var id = document.getElementById("id");
-    
-    
-    
+     
     
 edit_button.addEventListener("click", function() {
         
@@ -120,7 +118,7 @@ edit_button.addEventListener("click", function() {
      urgency.style.backgroundColor = "#dddbdb";
 
     document.getElementById("end-button").hidden = false;
-    
+    document.getElementById("edit-button").hidden = true;
     } );
     
 end_button.addEventListener("click", function() {
@@ -131,6 +129,8 @@ end_button.addEventListener("click", function() {
       type.contentEditable = false;
       urgency.contentEditable = false;
       document.getElementById("end-button").hidden = true;
+      document.getElementById("edit-button").hidden = false;
+})
     
     
     
@@ -142,8 +142,8 @@ function editTicket(ticketId) {
             window.location.href = "/ticket";
         });
       }
-      editTicket(id.textContent);
-    } )
+
+    
 
 
 //deletes ticket

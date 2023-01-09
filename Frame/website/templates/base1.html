@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {%endblock%}</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <div class="topnav">
+        <a class="active" href="/">Frame</a>
+        
+        <div class="dropdown" id="namedropdwn">
+            <button class="dropbtn" onclick="dropdown()">{{user.firstname}} {{user.lastname}}</button>
+            <div class="dropdowninfo" id="dropdowninfo">
+                <button class="drplink"><a href="/settings">settings</a></button>
+                <button class="drplink"><a href="/logout">logout</a></button>
+                {%if user.org != ""%}
+                <button class="drplink"><a href="/role">role</a></button>
+                <button id="memberbtn" class="drplink"><a id="memberbtn1" href="/members">Members</a></button>
+                {%endif%}
+            </div>
+        </div>
+        {%if user.org != ""%}
+        <a href="/create">Create</a>
+        <a href="/tickets">tickets</a>
+        {%endif%}
+
+        
+                
+        
+        {% block navbar %} {% endblock %}
+        
+       
+    </div>
+      
+
+<div class="default1">
+        {%block body%}{%endblock%}
+</div>
+
+
+
+<script src="../static/index.js"></script>
+</body>
+</html>

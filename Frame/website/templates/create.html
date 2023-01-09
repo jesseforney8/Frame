@@ -1,0 +1,46 @@
+{% extends "base1.html" %}
+
+{% block title%} Create {% endblock%}
+
+{% block body %}
+
+
+
+<form method="POST">
+
+        <label for="title">Title</label>
+        <input type="title" class="settinginput" id="title", name="title">
+    
+    
+        
+        <label for="body">Body</label>
+        <input type="body" class="settinginput" id="body" name="body">
+    
+        
+        <label for="owner">Owner</label>
+        <input type="owner" class="settinginput" id="owner" name="owner">
+    
+        
+        <label for="submitter">Submitter</label>
+        <input type="submitter" class="settinginput" id="submitter" name="submitter">
+
+    
+    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="urgency" name="urgency">
+        <option selected>Urgency</option>
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+    </select>
+
+    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="type" name="type">
+        <option selected>Type</option>
+        <option value="support">Support</option>
+        <option value="bug">Bug</option>
+        <option value="project">Project</option>
+    </select>
+    <br>
+    <button type="submit">Submit</button>
+
+</form>
+
+{% endblock %}

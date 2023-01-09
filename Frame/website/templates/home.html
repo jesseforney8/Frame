@@ -1,68 +1,21 @@
-{% extends "base.html" %}
+{% extends "base1.html" %}
 
 {% block title%} Home Page {% endblock%}
 
 {% block body %}
-
 {%if user.org == ""%}
-<center>
-<h1>Someone must invite you to an organization!</h1>
-<img src="static/waiting1.jpg">
-<h2>Please wait...</h2>
-<h2>Or... you can create your own organization.</h2>
-<input id="org">
-<button type="button" id="btn">Create</button>
-</center>
+    <center>
+        <h1>Someone must invite you to an organization!</h1>
+        <img src="static/waiting1.jpg">
+        <h2>Please wait...</h2>
+        <h2>Or... you can create your own organization.</h2>
+        <input id="org" class="settinginput">
+        <button type="button" id="btn">Create</button>
+    </center>
+    {%else%}
 
-{%else%}
+<center><h1>Nice Dashboard</h1></center>
 
-<form method="POST">
-
-    <div class="form-floating mb-3">
-        <input type="title" class="form-control" id="title", name="title">
-        <label for="title">Title</label>
-    </div>
-    <div class="form-floating">
-        <input type="body" class="form-control" id="body" name="body">
-        <label for="body">Body</label>
-    </div>
-    <div class="form-floating">
-        <input type="owner" class="form-control" id="owner" name="owner">
-        <label for="owner">Owner</label>
-    </div>
-    <div class="form-floating">
-        <input type="submitter" class="form-control" id="submitter" name="submitter">
-        <label for="submitter">Submitter</label>
-    </div>
-
-    
-    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="urgency" name="urgency">
-        <option selected>Urgency</option>
-        <option value="low">Low</option>
-        <option value="medium">Medium</option>
-        <option value="high">High</option>
-    </select>
-
-    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="type" name="type">
-        <option selected>Type</option>
-        <option value="support">Support</option>
-        <option value="bug">Bug</option>
-        <option value="project">Project</option>
-    </select>
-    <button type="submit" class="btn btn-primary">Submit</button>
-
-</form>
 {%endif%}
-
-<script>
-var org = document.getElementById("org");
-var btn = document.getElementById("btn");
-
-btn.addEventListener("click", function(){
-
-})
-
-
-</script>
 
 {% endblock %}

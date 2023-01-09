@@ -19,7 +19,6 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(50))
     role = db.Column(db.String(50))
     org = db.Column(db.String(20))
-    # group_id = db.Column(db.Integer, db.ForeignKey("groups.id"))
     groups = db.relationship("Group", secondary=user_groups, backref="groups")
 
 class Ticket(db.Model):
@@ -33,6 +32,20 @@ class Ticket(db.Model):
     owner = db.Column(db.String(20))
     submitter = db.Column(db.String(20))
     group = db.Column(db.String(20))
+    status = db.Column(db.String(20))
+    platform = db.Column(db.String(20))
+    version = db.Column(db.String(20))
+    comments = db.Column(db.String(500))
+    due_date = db.Column(db.String(20))
+    score = db.Column(db.String(20))
+    update_time = db.Column(db.String(20))
+    attachments = db.Column(db.String(20))
+    followers = db.Column(db.String(20))
+    resoltion_notes = db.Column(db.String(20))
+    r_approver = db.Column(db.String(20))
+    projected_time = db.Column(db.String(20))
+    spent_time = db.Column(db.String(20))
+    ticket_history = db.Column(db.String(20))
     org = db.Column(db.String(20))
 
 class Group(db.Model):
@@ -41,7 +54,6 @@ class Group(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True)
     org = db.Column(db.String(20))
-    # users = db.relationship("User", backref="group")
 
 
 
@@ -49,5 +61,5 @@ class Group(db.Model):
 
 
 
-roles = {"r": "Reader", "e": "Editor", "m": "Manager"}
+roles = {"r": "Reader", "e": "Editor", "a": "Administrator", "sa": "Super Administrator"}
 

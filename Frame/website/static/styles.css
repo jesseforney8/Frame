@@ -1,0 +1,300 @@
+
+/*  top nav styling ---------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+.topnav {
+    background-color: rgba(61, 54, 54, 0.8);
+    overflow: hidden;
+    
+    border-radius: 5px;
+  }
+  .topnav a {
+      float: left;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+      
+  }
+  .topnav a:hover {
+      opacity: 0.5;
+  
+  }
+  #logout {
+    float: right;
+  }
+  .searchbar {
+    float: right;
+  padding: 6px;
+  border: none;
+  font-size: 17px;
+  }
+
+  #namebtn {
+float: right;
+
+  }
+  .dropbtn {
+    margin: 0;
+    width: 100px;
+    height: 40px;
+  }
+
+  #namedropdwn {
+    
+    float: right;
+  padding: 6px;
+  border: none;
+  font-size: 17px;
+  }
+/*  drop down styling  ----------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+.dropdowninfo {
+  display: none;
+  position:absolute;
+  
+}
+
+.dropdowninfo a {
+  display: block;
+  position: relative;
+}
+.drplink {
+  display: block;
+  position: relative;
+}
+
+.show {
+  display: block; 
+  right: 0px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*  element styling  ----------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+  html {
+    background: linear-gradient(to bottom right, #33ccff -40%, #ff99cc 130%);
+    height: 100%;
+    background-attachment:fixed;
+  }
+  p, h3 {
+    color: white;
+    font-family: Corbel light;
+    font-size: 16pt;
+  }
+  button {
+    background: rgba(61, 54, 54, 0.8);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 150px;
+    height: 50px;
+    transition: opacity 0.15s;
+    margin-top: 15px;
+    margin-bottom: 8px ;
+  }
+  
+  button:hover {
+    opacity: 0.5;;
+  }
+  button:active {
+    opacity: 0.15;;
+  }
+  input {
+    border-radius: 5px;
+    border: none;
+    height: 30px;
+    width: 250px;
+    opacity: .85;
+  }
+  p1 {
+    display: block;
+  }
+  select {
+    text-align: center;
+    background-color: lightslategray;
+    border-radius: 10px;
+    cursor: pointer;
+    width:200px;
+    overflow-y: auto;
+    border: 3px solid rgba(61, 54, 54, 0.8);
+    padding-bottom: 0;
+    margin-top: 8px;
+
+  }
+  option {
+    font-size: 16pt;
+    border-bottom: 1px solid black; 
+    
+  }
+
+/* login div styling ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+.login {
+  background-color: rgba(61, 54, 54, 0.15);
+  margin: auto;
+  width: 20%;
+  padding: 10px;
+  text-align: center;
+  margin-top: 10px;
+  border-radius: 10px;
+  border-style: solid;
+  height: 100%;
+  border: 1px solid rgba(255, 255, 255, .5);
+}
+#email1 {
+  position: relative;
+  left: -100px;
+}
+#pass{
+  position: relative;
+  left: -90px;
+}
+.name {
+  position: relative;
+  left: -90px;
+}
+#cpass {
+  position: relative;
+  left: -55px;
+}
+#forgot {
+  position: relative;
+  left: 85px;
+  font-size: 12px;
+  text-decoration: none;
+  color: white;
+  font-family: Corbel light;
+}
+#signup {
+  padding-top: 150px;
+}
+.framelogin {
+  text-align: center;
+
+}
+
+/* base1 div styling -----------------------------------------------------------------------------------------------------------------------------------------------------  */
+
+.default1 {
+  text-align: start;
+  background-color:white;
+  border:3px solid rgba(61, 54, 54, 0.8);
+  margin: auto;
+  width: 40%;
+  border-radius: 5px;
+  margin-top: 8px;
+
+}
+.default1 p {
+color: black;
+border-bottom: 2px solid black;
+
+}
+.settinginput {
+  border-radius: 5px;
+  border: none;
+  height: 30px;
+  width: 250px;
+  opacity: .85;
+  border: 1px solid black;
+  display: block;
+
+}
+.settinginput1 {
+  border-radius: 5px;
+  border: none;
+  height: 30px;
+  width: 250px;
+  opacity: .85;
+  border: 1px solid black;
+
+}
+.selectit {
+  text-align: center;
+}
+.buttons {
+  background-color: #525f7f;
+  padding: 5px;
+  border-radius: 10px;
+  display: inline-block;
+  width: 300px;
+
+}
+/* modal div styling --------------------------------------------------------------------------------------------------------------------------------------------------  */
+
+.modal {
+  border: 3px solid black;
+  background-color: white;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  display: none;
+}
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, .7);
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+
+
+/* footer div styling --------------------------------------------------------------------------------------------------------------------------------------------------  */
+
+.footer {
+  color: white;
+  
+  width: 99%;
+  bottom: 0;
+  position: absolute;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  
+}
+#author {
+  float: left;
+}
+#copywrite {
+  float: right;
+}
+#about {
+  float: right;
+}
+
+
+
+
+
+
+  
+  
+  
+  
+ 
+
+ 
+
+  
+  

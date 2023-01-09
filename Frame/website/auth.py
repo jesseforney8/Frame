@@ -42,8 +42,8 @@ def sign_up():
         lastname = request.form.get("lastname")
         password1 = request.form.get("password1")
         password2 = request.form.get("password2")
-        org = request.form.get("org")
-        print(org)
+        org = ""
+        print(email, firstname, lastname, password1, password2, org)
         
 
         user = User.query.filter_by(email=email).first()

@@ -17,7 +17,6 @@ def create():
         body = request.form.get("body")
         urgency = request.form.get("urgency")
         type= request.form.get("type")
-        owner= request.form.get("owner")
         submitter= request.form.get("submitter")
         org = current_user.org
         
@@ -27,8 +26,6 @@ def create():
             flash("Title too small!", category="error")
         elif len(body) < 5:
             flash("Body too small!", category="error")
-        elif len(owner) < 5:
-            flash("Owner too small!", category="error")
         elif len(submitter) < 5:
             flash("Submitter too small!", category="error")
         elif len(urgency) < 3:
@@ -36,7 +33,7 @@ def create():
         elif len(type) < 3:
             flash("Select an type", category="error")
         else:
-            new_ticket = Ticket(title=title, body=body, urgency=urgency, type=type, owner=owner, submitter=submitter, org=org)
+            new_ticket = Ticket(title=title, body=body, urgency=urgency, type=type, owner="Not Assigned", submitter=submitter, org=org)
             db.session.add(new_ticket)
             db.session.commit()
             flash("Ticket Submitted!", category="success")
@@ -198,4 +195,14 @@ def createorg():
 @views.route("/", methods=["POST", "GET"])
 @login_required
 def home():
+    if request.method == "POST":
+        org = request.form.get("org")
+        current_user.org = org
+        current_user.role = "Super Administrator"
+        db.session.commit()
+
+        return render_template("home.html", user=current_user)
+
+
+
     return render_template("home.html", user=current_user)

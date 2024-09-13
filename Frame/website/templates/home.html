@@ -9,8 +9,10 @@
         <img src="static/waiting1.jpg">
         <h2>Please wait...</h2>
         <h2>Or... you can create your own organization.</h2>
-        <input id="org" class="settinginput">
-        <button type="button" id="btn">Create</button>
+        <form method="post">
+            <input id="org" name="org" class="settinginput">
+            <button type="submit" id="btn">Create</button>
+        </form>
     </center>
     {%else%}
 

@@ -286,6 +286,26 @@ border-bottom: 2px solid black;
 
 
 
+/* flashing bar for errors and what not--------------------------------------------------------------------------*/
+
+.redflash {
+  display: flex;
+  margin-top: 5px;
+  width: 1264px;
+  height: 50px;
+  background:red;
+  text-align: center;
+  -webkit-text-fill-color: rgb(2, 2, 2);
+  font-size: 50px;
+  border: dashed black;
+  justify-content: center;
+  align-items: center;
+  
+
+}
+
+
+
 
 
   

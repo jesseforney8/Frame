@@ -156,7 +156,7 @@ function GotoTicket(ticketId) {
       });
     }
   
-// silter search function, work in progess
+// filter search function, work in progess
 
 function add_search() {
 let btnval = document.getElementById("searchowner");

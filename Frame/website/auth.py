@@ -5,7 +5,7 @@ from models import User, roles
 from flask_login import login_user, login_required, logout_user, current_user
 
 def registerUser(email, fname, lname, password, org):
-    new_user = User(email=email, firstname=fname, lastname=lname, password=generate_password_hash(password, method="sha256"), role=roles["r"], org=org)
+    new_user = User(email=email, firstname=fname, lastname=lname, password=generate_password_hash(password, method="scrypt"), role=roles["r"], org=org)
 
     db.session.add(new_user)
     db.session.commit()
@@ -87,18 +87,27 @@ def logout():
 @auth.route("/settings", methods=["POST", "GET"])
 @login_required
 def settings():
+
+    error = False
+    error_type = "None"
+
     if request.method == "POST":
         newpassword = request.form.get("newpassword")
         newpassword2 = request.form.get("newpassword2")
         if newpassword != newpassword2:
             flash("Passwords don't match!", category="error")    
+            error = True
+            error_type = "passwords_dont_match"
+        elif newpassword == "" and newpassword2 == "":
+            error_type = "info_not_filed_out"
+            error = True
         else:
-            current_user.password = generate_password_hash(newpassword, method="sha256")
+            current_user.password = generate_password_hash(newpassword, method="scrypt")
             db.session.commit()
             flash("Password changed!", category="success")
 
 
-    return render_template("settings.html", user=current_user)
+    return render_template("settings.html", user=current_user, error=error, error_type=error_type)
 
 @auth.route("/role", methods=["POST", "GET"])
 @login_required

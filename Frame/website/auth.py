@@ -15,27 +15,43 @@ auth = Blueprint("auth", __name__)
 
 @auth.route("/login", methods=["POST", "GET"])
 def login():
+
+    error = False
+    error_type = "None"
+    
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
 
+
         user = User.query.filter_by(email=email).first()
-        if user:
-            if check_password_hash(user.password, password):
-                flash("Logged in!", category="success")
-                login_user(user, remember=True)
-                return redirect("/")
+        if email != "" or password != "":
+            if user:
+            
+                if check_password_hash(user.password, password):
+                    flash("Logged in!", category="success")
+                    login_user(user, remember=True)
+                    return redirect("/")
+                else:
+                    error = True
+                    error_type = "invalid_password"
             else:
-                flash("Inncorrect password!", category="error")
+                error = True
+                error_type = "user_doesnt_exist"
         else:
-            flash("User doesn't exist!", category="error")
+                error = True
+                error_type = "info_not_filed_out"        
         
 
 
-    return render_template("login.html", user=current_user)
+    return render_template("login.html", user=current_user, error=error, error_type=error_type)
 
 @auth.route("/sign-up", methods=["POST", "GET"])
 def sign_up():
+
+    error = False
+    error_type = "None"
+
     if request.method == "POST":
         email = request.form.get("email")
         firstname = request.form.get("firstname")
@@ -48,35 +64,38 @@ def sign_up():
 
         user = User.query.filter_by(email=email).first()
         try:
-            user1 = User.query.filter_by(org=org).first()
-        
 
             if user:
-                flash("User already exists!", category="error")
+                error = True
+                error_type = "user_already_exists"
+            elif email == "" or firstname == "" or lastname == "" or password1 == "" or password2 == "":
+                error = True
+                error_type = "info_not_filed_out"
             elif password1 != password2:
-                flash("Passwords do not match!", category="error")
+                error = True
+                error_type = "passwords_dont_match"
             elif len(password1) <= 8:
-                flash("Password must be greater than 8 character!", category="error")
-            elif len(email) < 5:
-                flash("E-mail must be greater than 5 characters!", category="error")
-            elif len(firstname) < 1:
-                flash("First Name must be greater than 1 character!", category="error")
-            elif len(lastname) < 1:
-                flash("Last Name must be greater than 1 character!", category="error")
-            elif user1.org == "":
-                registerUser(email, firstname, lastname, password1, org)
-                return redirect("/")
-            elif user1:
-                flash("Org already exists!", category="error")
+                error = True
+                error_type = "passwords_too_short"
+            elif len(email) < 6:
+                error = True
+                error_type = "email_too_short"
+            elif len(firstname) < 2:
+                error = True
+                error_type = "name_too_short"
+            elif len(lastname) < 2:
+                error = True
+                error_type = "lname_too_short"
             else:
                 registerUser(email, firstname, lastname, password1, org)
                 return redirect("/")
         
         except AttributeError:
-            registerUser(email, firstname, lastname, password1, org)
+            error = True
+            error_type = "unknown_error"
             return redirect("/")
 
-    return render_template("sign_up.html", user=current_user)
+    return render_template("sign_up.html", user=current_user, error=error, error_type=error_type)
 
 @auth.route("/logout")
 @login_required
@@ -94,8 +113,7 @@ def settings():
     if request.method == "POST":
         newpassword = request.form.get("newpassword")
         newpassword2 = request.form.get("newpassword2")
-        if newpassword != newpassword2:
-            flash("Passwords don't match!", category="error")    
+        if newpassword != newpassword2:   
             error = True
             error_type = "passwords_dont_match"
         elif newpassword == "" and newpassword2 == "":

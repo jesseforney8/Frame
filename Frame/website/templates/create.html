@@ -20,21 +20,24 @@
         
         <label for="submitter">Submitter</label>
         <input type="submitter" class="settinginput" id="submitter" name="submitter" value="{{user.email}}">
-
+    <div class="box_selection">
+        <label for="type">Type</label>
+        <select class="form-select" multiple aria-label="multiple select example" id="type" name="type">
+            <label>Type</label>
+            <option value="support">Support</option>
+            <option value="bug">Bug</option>
+            <option value="project">Project</option>
+            <option value="other">Other</option>
+        </select>
     
-    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="urgency" name="urgency">
-        <option selected>Urgency</option>
+    <label for="urgency">Urgency</label>
+    <select class="form-select" multiple aria-label="multiple select example" id="urgency" name="urgency">
         <option value="low">Low</option>
         <option value="medium">Medium</option>
         <option value="high">High</option>
-    </select>
-
-    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="type" name="type">
-        <option selected>Type</option>
-        <option value="support">Support</option>
-        <option value="bug">Bug</option>
-        <option value="project">Project</option>
-    </select>
+        <option value="very_high">Very High</option>
+      </select>
+    </div>
     <br>
     <button type="submit">Submit</button>
 

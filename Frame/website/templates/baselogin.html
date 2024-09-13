@@ -13,11 +13,21 @@
     <div class="redflash">
         <div class="flash_content">
             {% if error_type == "passwords_dont_match" %}
-            <h4 id="passwords_dont_match">Passwords dont match! {error_type}</h4>
+            <h4 id="passwords_dont_match">Passwords dont match!</h4>
             {% elif error_type == "info_not_filed_out" %}
             <h4 id="info_not_filed_out">Info not filed out!!</h4>
-            {% elif error_type == "gogo1" %}
-            <h4 id="email_already_exists">E-mail Already Exists!</h4>
+            {% elif error_type == "user_already_exists" %}
+            <h4 id="email_already_exists">User Already Exists!</h4>
+            {% elif error_type == "password_too_short" %}
+            <h4 id="email_already_exists">Password too short!</h4>
+            {% elif error_type == "email_too_short" %}
+            <h4 id="email_already_exists">E-mail too short!</h4>
+            {% elif error_type == "name_too_short" %}
+            <h4 id="email_already_exists">First name too short!</h4>
+            {% elif error_type == "lname_too_short" %}
+            <h4 id="email_already_exists">Last name too short!</h4>
+            {% elif error_type == "unknown_error" %}
+            <h4 id="email_already_exists">Unknown Error!</h4>
             {% endif %}
         </div>
     </div>

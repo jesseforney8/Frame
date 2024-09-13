@@ -14,6 +14,19 @@
     <img src="../static/logo-no-background1.png">
 
 </div>
+{% if error == true %}
+<div class="redflash">
+    <div class="flash_content">
+        {% if error_type == "user_doesnt_exist" %}
+        <h4 id="email_already_exists">User Doesn't Exists!</h4>
+        {% elif error_type == "invalid_password" %}
+        <h4 id="email_already_exists">Invalid Password!</h4>
+        {% elif error_type == "info_not_filed_out" %}
+            <h4 id="info_not_filed_out">Info not filed out!</h4>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
 <form method="POST">
 <div class="login">
     <h3>Login</h3>

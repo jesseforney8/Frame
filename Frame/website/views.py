@@ -12,33 +12,46 @@ views = Blueprint("views", __name__)
 @views.route("/create", methods=["POST", "GET"])
 @login_required
 def create():
+    error = False
+    error_type = "None"
+    
     if request.method == "POST":
+
+
         title = request.form.get("title")
         body = request.form.get("body")
         urgency = request.form.get("urgency")
-        type= request.form.get("type")
+        type_= request.form.get("type")
         submitter= request.form.get("submitter")
         org = current_user.org
         
         # minimum standard for creating ticket plus the db commit
 
         if len(title) < 5:
-            flash("Title too small!", category="error")
+            error = True
+            error_type = "title_too_short"
         elif len(body) < 5:
-            flash("Body too small!", category="error")
+            error = True
+            error_type = "body_too_short"
         elif len(submitter) < 5:
-            flash("Submitter too small!", category="error")
-        elif len(urgency) < 3:
-            flash("Select an urgency", category="error")
-        elif len(type) < 3:
-            flash("Select an type", category="error")
+            error = True
+            error_type = "submitter_too_short"
+        elif type_ == None:
+            error = True
+            error_type = "select_a_type"
+        elif urgency == None:
+            error = True
+            error_type = "select_a_urgency"
+        elif title == "" or body == "" or submitter == "" or type_ == "" or urgency == "":
+            error = True
+            error_type = "info_not_filed_out"
         else:
-            new_ticket = Ticket(title=title, body=body, urgency=urgency, type=type, owner="Not Assigned", submitter=submitter, org=org)
+            new_ticket = Ticket(title=title, body=body, urgency=urgency, type=type_, owner="Not Assigned", submitter=submitter, org=org)
             db.session.add(new_ticket)
             db.session.commit()
             flash("Ticket Submitted!", category="success")
 
-    return render_template("create.html", user=current_user)
+    return render_template("create.html", user=current_user, error=error, error_type=error_type)
 
 #route for views tickets
 

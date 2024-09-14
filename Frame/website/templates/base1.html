@@ -41,8 +41,17 @@
             <h4 id="passwords_dont_match">Passwords dont match!</h4>
             {% elif error_type == "info_not_filed_out" %}
             <h4 id="info_not_filed_out">Info not filed out!!</h4>
-            {% elif error_type == "gogo1" %}
-            <h4 id="email_already_exists">E-mail Already Exists!</h4>
+            {% elif error_type == "title_too_short" %}
+            <h4 id="email_already_exists">Title Too Short!</h4>
+            {% elif error_type == "body_too_short" %}
+            <h4 id="email_already_exists">Body Too Short!</h4>
+            {% elif error_type == "submitter_too_short" %}
+            <h4 id="email_already_exists">Submitter Too Short!</h4>
+            {% elif error_type == "select_a_type" %}
+            <h4 id="email_already_exists">Select a type!</h4>
+            {% elif error_type == "select_a_urgency" %}
+            <h4 id="email_already_exists">Select an urgency level!</h4>
+
             {% endif %}
         </div>
     </div>

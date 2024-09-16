@@ -3,23 +3,19 @@
 {% block title%} Tickets {% endblock%}
 
 {%block navbar %}
-<div class="searchbar">
-  
-  <div class="dropdown">
-    <button class="dropbtn" onclick="openFilterModal()" id="filterbtn">Filter</button>
-    <div class="dropdowninfo" id="dropdowninfo1">
-        <button class="drplink" id="searchowner" onclick="add_search()">Owner</button>
-        <button class="drplink" id="searchgroup" onclick="add_search1()">Group</button>
-    </div>
-  <input class="search" type="text" id="filterinput">
-  <input class="search" type="text" id="finalsearch">
-  <button class="dropbtn">Search</button>
-</div>
-</div>
+
 
 {%endblock%}
 
 {% block body %}
+<br>
+<div class="dropdown">
+  <div class="filter_button">
+    <button button class="dropbtn" onclick="openFilterModal()" id="filterbtn">Filter</button>
+  </div> 
+</div>
+
+
 
 <ul class="list-group">
     {% for ticket in tickets %}
@@ -55,9 +51,32 @@
 
 <div class="modal-wrapper" id="modal-wrapper-filter">
   <div class="modal" id="modal-filter">
-    <h4>test modal</h4>
-    <button id="close-modal" onclick="closeFilterModal()">Close</button>
+    <div class="select_type">
+      <div class="select_row">
+        <div class="select_box">
+          <h4>Please Select a Filter Type</h4>
+          
+            <select class="form-select" multiple aria-label="multiple select example" id="type" name="type">
+                <option value="id">ID</option>
+                <option value="owner">Owner</option>
+                <option value="group">Group</option>
+                <option value="submitter">Submitter</option>
+            </select>
+        </div>
+        <div>
+          <label>Please Enter Filter</label>
+        </div>
+        <div>
+          <input type="text" id="filter_input" >
+        </div>
+          
 
+
+
+        <button id="close-modal" onclick="closeFilterModal()">Close</button>
+        <button type="submit" id="submit_filter_button">Submit</button>
+      </div>
+    </div>
   </div>
 </div>
 

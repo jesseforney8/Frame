@@ -72,8 +72,17 @@ float: right;
 
 
 
+.filter_button {
 
+  display: flex;
+  justify-content: center;
+  
+}
 
+#filterbtn {
+
+  width: 575px;
+}
 
 
 
@@ -311,10 +320,22 @@ border-bottom: 2px solid black;
 
 }
 
+#modal-filter {
 
+  text-align: left;
+}
 
-  
-  
+.select_row {
+
+  text-align: center;
+
+}
+
+#filter_input {
+
+  border: black solid;
+}
+
   
   
  

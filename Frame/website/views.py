@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, jsonify, session
+from flask import Blueprint, render_template, request, flash, jsonify, session, redirect
 from flask_login import login_required, current_user
 from models import Ticket, roles, User, Group
 from __init__ import db
@@ -62,13 +62,33 @@ def tickets():
         ticket = json.loads(request.data)
 
         ticketId = ticket["ticketId"]
-        session["id"] = ticketId       
+        session["id"] = ticketId
 
-        return jsonify({})
-        
-    return render_template("tickets.html", user=current_user, tickets=Ticket.query.filter_by(org=current_user.org))
+        return redirect("/tickets.html")
+    try:
+        filter_info = session["filter_info"]
+
+    except KeyError:
+        return render_template("tickets.html", user=current_user, tickets=Ticket.query.filter_by(org=current_user.org))
     
-# route for the indiviual ticket
+    if filter_info["type_"] != "" and filter_info["filter_input"] != "":
+        print(filter_info)
+        if filter_info["type_"] == "id":
+            try:
+                ticket = Ticket.query.get(filter_info["filter_input"])
+                if ticket == None:
+                    return render_template("tickets.html", user=current_user, tickets=["No Tickets"])
+                return render_template("tickets.html", user=current_user, tickets=[ticket])
+
+            except UnboundLocalError:
+                return redirect("/tickets")
+            
+        elif filter_info["type_"] == "all":
+            return render_template("tickets.html", user=current_user, tickets=Ticket.query.filter_by(org=current_user.org))
+
+            
+            
+    return render_template("tickets.html", user=current_user, tickets=Ticket.query.filter_by(org=current_user.org))
 
 @views.route(f"/ticket", methods=["POST", "GET"])
 @login_required
@@ -219,3 +239,17 @@ def home():
 
 
     return render_template("home.html", user=current_user)
+
+@views.route("/filter", methods=["POST"])
+@login_required
+def filter():
+    if request.method == "POST":
+        filter_input = request.form.get("filter_input")
+        type_ = request.form.get("type_")
+        filter_info = {"filter_input": filter_input, "type_": type_}
+        session["filter_info"] = filter_info
+
+        return redirect("/tickets")
+
+    
+    

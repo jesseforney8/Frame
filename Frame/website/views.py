@@ -167,9 +167,9 @@ def members():
             pass
 
             #restricts page access based on role
-
+    groups = Group.query.all()
     if current_user.role == roles["a"] or current_user.role == roles["sa"]:
-        return render_template("members.html", user=current_user, members=User.query.filter_by(org=current_user.org), groups=Group.query.filter_by(org=current_user.org), glist = [])
+        return render_template("members.html", user=current_user, members=User.query.filter_by(org=current_user.org), groups=groups, glist = [])
     else:
         return render_template("home.html", user=current_user)
     
@@ -261,5 +261,25 @@ def filter():
 
         return redirect("/tickets")
 
-    
+@views.route("/add_group_to_user", methods=["POST"])
+@login_required
+def add_group_to_user():
+    if request.method == "POST":
+        
+        user_groups = request.form.getlist("checkbox_groups")
+        
+        userid = user_groups[0].split("-")
+        userid = userid[1]
+        print(userid)
+        
+        groupids = []
+        for group in user_groups:
+            groupids.append(group[0])
+        print(groupids)
+
+
+
+
+        
+        return redirect("/members")
     

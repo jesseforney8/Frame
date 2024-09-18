@@ -11,45 +11,53 @@
 </form>
 
 {%for member in members%}
-<ul class="list-group">
-    
-        <p>E-mail: {{member.email}}</p>
-        <p>Name: {{member.firstname}} {{member.lastname}}</p>
-        <p>Role: {{member.role}}</p>
-        {% for group in member.groups%}
-        <!-- this line appends the groups into a list-->
-            {% set dummy = glist.append(group.name) %}
-        {% endfor %}
-        <!-- this line prints the list as a string-->
-        <p>Groups: {{glist|join(", ")}}</p>
-        {% set glist = [] %}
-        {{glist}}
-    
-</ul>
-<select class="form-select" aria-label="Default select example" id="select{{member.email}}" onchange="role1('{{member.email}}', 'select{{member.email}}')">
-    <option selected>Select New Role</option>
-    <option value="Reader">Reader</option>
-    <option value="Editor">Editor</option>
-    <option value="Administrator">Administrator</option>
-    <option value="Super Administrator">Super Administrator</option>
-  </select>
-  
+<div class="user">
+    <ul class="list-group">
+        
+            <p>E-mail: {{member.email}}</p>
+            <p>Name: {{member.firstname}} {{member.lastname}}</p>
+            <p>Role: {{member.role}}</p>
+            {% for group in member.groups%}
+            <!-- this line appends the groups into a list-->
+                {% set dummy = glist.append(group.name) %}
+            {% endfor %}
+            <!-- this line prints the list as a string-->
+            <p>Groups: {{glist|join(", ")}}</p>
+            {% set glist = [] %}
+            {{glist}}
+        
+    </ul>
 
-<button>Change Groups</button>
-
- <div hidden class="checkboxdiv">
-    <input type="checkbox" id="test" value="test">
-    <label for="test">test</label> <br>
-    <input type="checkbox" value="test1">
-    <label for="test1">test1</label> <br>
-    <input type="checkbox" value="test2">
-    <label for="test2">test2</label> <br>
+<div>
+    <select class="form-select" aria-label="Default select example" id="select{{member.email}}" onchange="role1('{{member.email}}', 'select{{member.email}}')">
+        <option selected>Select New Role</option>
+        <option value="Reader">Reader</option>
+        <option value="Editor">Editor</option>
+        <option value="Administrator">Administrator</option>
+        <option value="Super Administrator">Super Administrator</option>
+    </select>
 </div> 
 
+<form method="post" action="/add_group_to_user">
+    <div class="checkboxdiv">
+        {% for group in groups%}
+        <div>
+            <input type="checkbox" id="{{group.id}}" name="checkbox_groups" value="{{group.id}}-{{member.id}}">
+            <label for="test">{{group.name}}</label>
+        </div>
+        {% endfor %}
+    </div> 
+    <div>    
+        <button type="submit">Change Groups</button>
+    </div>
+</form>
 
 
 
 <button type="button" id="remove" onclick="remove('{{member.email}}')">Remove</button>
+
+</div>
+
 {%endfor%}
 
 <input id="grp" class="settinginput1">

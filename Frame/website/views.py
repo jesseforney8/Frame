@@ -72,21 +72,31 @@ def tickets():
         return render_template("tickets.html", user=current_user, tickets=Ticket.query.filter_by(org=current_user.org))
     
     if filter_info["type_"] != "" and filter_info["filter_input"] != "":
-        print(filter_info)
+
+        #filer for id
         if filter_info["type_"] == "id":
             try:
                 ticket = Ticket.query.get(filter_info["filter_input"])
                 if ticket == None:
                     return render_template("tickets.html", user=current_user, tickets=["No Tickets"])
                 return render_template("tickets.html", user=current_user, tickets=[ticket])
-
             except UnboundLocalError:
                 return redirect("/tickets")
-            
+        #filter for all
         elif filter_info["type_"] == "all":
             return render_template("tickets.html", user=current_user, tickets=Ticket.query.filter_by(org=current_user.org))
+        #filer for group
+        elif filter_info["type_"] == "group":
+            pass
+        #filer for submitter
+        elif filter_info["type_"] == "submitter":
 
-            
+            tickets = Ticket.query.filter_by(submitter=filter_info["filter_input"])
+            return render_template("tickets.html", user=current_user, tickets=tickets)
+        #filer for owner
+        elif filter_info["type_"] == "owner":
+            tickets = Ticket.query.filter_by(owner=filter_info["filter_input"])
+            return render_template("tickets.html", user=current_user, tickets=tickets)
             
     return render_template("tickets.html", user=current_user, tickets=Ticket.query.filter_by(org=current_user.org))
 

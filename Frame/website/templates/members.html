@@ -17,14 +17,8 @@
             <p>E-mail: {{member.email}}</p>
             <p>Name: {{member.firstname}} {{member.lastname}}</p>
             <p>Role: {{member.role}}</p>
-            {% for group in member.groups%}
-            <!-- this line appends the groups into a list-->
-                {% set dummy = glist.append(group.name) %}
-            {% endfor %}
-            <!-- this line prints the list as a string-->
-            <p>Groups: {{glist|join(", ")}}</p>
-            {% set glist = [] %}
-            {{glist}}
+            
+            
         
     </ul>
 

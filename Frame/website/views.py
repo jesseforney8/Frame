@@ -266,16 +266,19 @@ def filter():
 def add_group_to_user():
     if request.method == "POST":
         
-        user_groups = request.form.getlist("checkbox_groups")
+        user_input_groups = request.form.getlist("checkbox_groups")
         
-        userid = user_groups[0].split("-")
+        userid = user_input_groups[0].split("-")
         userid = userid[1]
-        print(userid)
         
         groupids = []
-        for group in user_groups:
+        for group in user_input_groups:
             groupids.append(group[0])
-        print(groupids)
+        
+        user = User.query.filter_by(id=userid)
+        
+        
+        db.session.commit()
 
 
 

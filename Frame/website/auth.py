@@ -5,7 +5,7 @@ from models import User, roles
 from flask_login import login_user, login_required, logout_user, current_user
 
 def registerUser(email, fname, lname, password, org):
-    new_user = User(email=email, firstname=fname, lastname=lname, password=generate_password_hash(password, method="scrypt"), role=roles["r"], org=org)
+    new_user = User(email=email, firstname=fname, lastname=lname, password=generate_password_hash(password, method="scrypt"), role=roles["r"], org=org, groups="")
 
     db.session.add(new_user)
     db.session.commit()

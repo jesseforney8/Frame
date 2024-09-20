@@ -46,7 +46,7 @@ def create():
             error = True
             error_type = "info_not_filed_out"
         else:
-            new_ticket = Ticket(title=title, body=body, urgency=urgency, type=type_, owner="Not Assigned", submitter=submitter, org=org)
+            new_ticket = Ticket(title=title, body=body, urgency=urgency, type=type_, owner="Not Assigned", submitter=submitter, org=org, group="", status="Open", comments="")
             db.session.add(new_ticket)
             db.session.commit()
             flash("Ticket Submitted!", category="success")

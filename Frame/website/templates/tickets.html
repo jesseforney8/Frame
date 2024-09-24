@@ -9,45 +9,59 @@
 
 {% block body %}
 
-<br>
-<div class="dropdown">
-  <div class="filter_button">
-    <button button class="dropbtn" onclick="openFilterModal()" id="filterbtn">Filter</button>
-  </div> 
-</div>
+
+  <br>
+  <div class="dropdown">
+    <div class="filter_button">
+      <button button class="dropbtn" onclick="openFilterModal('modal-filter', 'modal-wrapper-filter')" id="filterbtn">Filter</button>
+    </div> 
+  </div>
+
+
+  
+  <ul class="list-group">
+
+      {% for ticket in tickets %}
+      <div class="tickets">
+          <p1  id="id">{{ticket.id}}</p1>
+          <p1><b>Title:</b> {{ ticket.title }}</p1>
+          <p1><b>Description:</b> {{ ticket.body }}</p1>
+          <p1><b>Ticket Owner:</b>{{ ticket.owner }}</p1>
+          <p1><b>Ticket Submitter:</b> {{ ticket.submitter }}</p1>
+          <p1><b>Ticket Type:</b> {{ ticket.type }}</p1>
+          <p1><b>Urgency:</b> {{ ticket.urgency }}</p1>
+          <p1><b>Group:</b> {{ ticket.group_id }}</p1>
+          <div class="bottom_buttons">
+            <form method="post" action="/ticket">
+              <input value="{{ticket.id}}" name="ticketId" id="ticketId" hidden>
+              <button type="submit">View</button>
+            </form>
+            
+
+           
+<div>
+  <button button  onclick="openFilterModal('group-modal', 'group_wrapper')">Add to Group</button>
+</div> 
 
 
 
-<ul class="list-group">
 
-    {% for ticket in tickets %}
-    
-        <p1  id="id">{{ticket.id}}</p1>
-        <p1><b>Title:</b> {{ ticket.title }}</p1>
-        <p1><b>Description:</b> {{ ticket.body }}</p1>
-        <p1><b>Ticket Owner:</b>{{ ticket.owner }}</p1>
-        <p1><b>Ticket Submitter:</b> {{ ticket.submitter }}</p1>
-        <p1><b>Ticket Type:</b> {{ ticket.type }}</p1>
-        <p1><b>Urgency:</b> {{ ticket.urgency }}</p1>
+            {% if user.role == "Administrator" %}
+            
+            <button  type="button" onclick="deleteTicket('{{ticket.id}}')">Delete</button>
 
-        <button  id="btn_{{ticket.id}}" onclick="GotoTicket('{{ticket.id}}')">View</button>
-        
-        {% if user.role == "Administrator" %}
-         
-        <button  type="button" onclick="deleteTicket('{{ticket.id}}')">Delete</button>
-
-        {% elif user.role == "Super Administrator" %}
-         
-        <button  type="button" onclick="deleteTicket('{{ticket.id}}')">Delete</button>
-                
-        
-        {% endif %}
-    
-    {% endfor %}
+            {% elif user.role == "Super Administrator" %}
+            
+            <button  type="button" onclick="deleteTicket('{{ticket.id}}')">Delete</button>
+          </div>       
+        </div>
+          {% endif %}
+      
+      {% endfor %}
 
 
 
-</ul>
+  </ul>
 
 
 
@@ -77,12 +91,66 @@
 
 
 
-          <button id="close-modal" onclick="closeFilterModal()">Close</button>
+          <button id="close-modal" onclick="closeFilterModal('modal-filter', 'modal-wrapper-filter' )">Close</button>
           <button type="submit" id="submit_filter_button">Submit</button>
         </form>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal-wrapper" id="group_wrapper">
+  <div class="modal" id="group-modal">
+    <div class="select_type">
+      <div class="select_row">
+        <form method="post" action="/add_group_to_ticket">
+          <h4>Please Select Group for ticket</h4>
+          
+          {% for group in groups %}
+          <div class="groups">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="radio_group" value="{{group.id}}-{{ticket.id}}">
+              <label class="form-check-label" for="flexRadioDefault1">
+                {{group.name}}
+              </label>
+            </div>
+        </div>
+          
+          {% endfor %}
+             
+
+
+
+          <button id="" onclick="closeFilterModal('group_wrapper', 'group-modal')">Close</button>
+          <button type="submit" id="">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
 
 {% endblock %}

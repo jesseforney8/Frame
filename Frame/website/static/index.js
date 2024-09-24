@@ -1,30 +1,20 @@
 //modal for filter button
 
-function openFilterModal() {
-  let modal_filter = document.getElementById("modal-filter");
-  let modal_wrapper = document.getElementById("modal-wrapper-filter");
-
+function openFilterModal(modal_filter1, modal_wrapper1) {
+  let modal_filter = document.getElementById(modal_filter1);
+  let modal_wrapper = document.getElementById(modal_wrapper1);
   modal_filter.style.display = "block";
   modal_wrapper.style.display = "block";
 }
 
-function closeFilterModal() {
-  let modal_filter = document.getElementById("modal-filter");
-  let modal_wrapper = document.getElementById("modal-wrapper-filter");
+function closeFilterModal(modal_filter1, modal_wrapper1) {
+  let modal_filter = document.getElementById(modal_filter1);
+  let modal_wrapper = document.getElementById(modal_wrapper1);
 
   modal_filter.style.display = "none";
   modal_wrapper.style.display = "none";
 }
 
-let modal_filter = document.getElementById("modal-filter");
-let modal_wrapper = document.getElementById("modal-wrapper-filter");
-
-window.onclick = function(event) {
-  if (event.target == modal_wrapper) {
-    modal_wrapper.style.display = "none";
-    modal_filter.style.display = "none";
-  }
-}
 
 // name drop down
 
@@ -145,16 +135,6 @@ function deleteTicket(ticketId) {
       });
     }
 
-//going into more detail on selected ticket
-
-function GotoTicket(ticketId) {
-      fetch("/tickets", {
-        method: "POST",
-        body: JSON.stringify({ ticketId: ticketId}),
-      }).then((_res) => {
-          window.location.href = "/ticket";
-      });
-    }
   
 // filter search function, work in progess
 
@@ -175,3 +155,4 @@ let filterinput = document.getElementById("filterinput");
 finalsearch.value = btnval.textContent + ": " + filterinput.value;
 
 }
+

@@ -3,49 +3,29 @@
 {% block title%} Home Page {% endblock%}
 
 {% block body %}
-<ul class="list-group">
-    {% for ticket in tickets %}
-        <p2  id="id">{{ticket.id}}</p2><br>
-        <p2  id="id">{{id}}</p2><br>
-        <p2><b>Title:</b> <p2 id="title" class="infoclass">{{ ticket.title }}</p2></p2> <br>
-        <p2><b>Description:</b><p2 id="body"class="infoclass"> {{ ticket.body }}</p2></p2><br>
-        <p2><b>Ticket Owner:</b><p2 id="owner"class="infoclass">{{ ticket.owner }}</p2></p2><br>
-        <p2><b>Ticket Submitter:</b><p2 id="submitter"class="infoclass"> {{ ticket.submitter }}</p2></p2><br>
-        <p2><b>Ticket Type:</b><p2 id="type"class="infoclass"> {{ ticket.type }}</p2></p2><br>
-        <p2><b>Urgency:</b><p2 id="urgency"class="infoclass"> {{ ticket.urgency }}</p2></p2><br>
-        <p2><b>Org:</b><p2 id="org"class="infoclass"> {{ ticket.org }}</p2><br>
 
-        {% if user.role == "Editer" %}
 
-        
-            <button type="button">Edit</button>
-        
-        
-        {% elif user.role == "Administrator" %}
-        
-            <button id="edit-button" type="button">Edit</button>
-        
-        
-            <button  id="end-button" type="button">Done</button>
-        
-        
-            <button type="button" onclick="deleteTicket('{{ticket.id}}')">Delete</button>
+<div>
+    <p1  id="id">{{ticket.id}}</p1>
+        <p1><b>Title:</b> {{ ticket.title }}</p1>
+        <p1><b>Description:</b> {{ ticket.body }}</p1>
+        <p1><b>Ticket Owner:</b>{{ ticket.owner }}</p1>
+        <p1><b>Ticket Submitter:</b> {{ ticket.submitter }}</p1>
+        <p1><b>Ticket Type:</b> {{ ticket.type }}</p1>
+        <p1><b>Urgency:</b> {{ ticket.urgency }}</p1>
+        <p1><b>Group:</b> {{ ticket.group_id }}</p1>
+        <p1><b>Status:</b> {{ ticket.status }}</p1>
+        <p1><b>Comments:</b> {{ ticket.comments }}</p1>
+</div>
 
-            {% elif user.role == "Super Administrator" %}
-        
-            <button id="edit-button" type="button">Edit</button>
-        
-        
-            <button hidden id="end-button" type="button">Done</button>
-        
-        
-            <button type="button" onclick="deleteTicket('{{ticket.id}}')">Delete</button>
-          
-                
-        
-        {% endif %}
-    </li>
-    {% endfor %}
+
+
+
+
+
+
+
+
 
 
 {% endblock%}

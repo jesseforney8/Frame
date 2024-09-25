@@ -270,3 +270,18 @@ def get_ticket_id_for_group():
         ticketid = request.form.get("ticketId2")
         session["ticket_id_for_groups"] = ticketid
         return redirect("groups")
+
+@views.route("/group_management", methods=["POST", "GET"])
+@login_required
+def group_management():
+
+    groups = Group.query.all()
+
+    if request.method == "POST":
+        groupid = json.loads(request.data)
+        group = Group.query.filter_by(id=groupid["groupId"]).first()
+        db.session.delete(group)
+        db.session.commit()
+        return redirect("group_management")
+
+    return render_template("group_management.html", user=current_user, groups=groups)

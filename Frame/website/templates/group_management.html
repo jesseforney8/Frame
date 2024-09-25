@@ -5,19 +5,17 @@
 {% block body %}
 
 
-<form method="post" action="/add_group_to_ticket">
-    <h4>Please Select Group for ticket {{ticket}} </h4>
-    
-    {% for group in groups %}
-    
-    <div class="groups">
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="radio_group" value="{{group.id}}">
-        <label class="form-check-label" for="flexRadioDefault1">
-          {{group.name}} 
-        </label>
-      </div>
-  </div>
+<input id="grp" class="settinginput1">
+<button type="button" onclick="addgroup('{{user.email}}')">Create Group</button> 
+
+<h2><b>Groups in Organization</b></h2> <br>
+{%for group in groups%}
+<div class="remove_btn">
+  <p>{{group.name}}</p>
+  
+  <button id="remove_button" onclick="deleteGroup('{{group.id}}')">Remove</button>
+</div>
+
 
   
   

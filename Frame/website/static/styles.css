@@ -212,7 +212,7 @@ float: right;
 }
 .default1 p {
 color: black;
-border-bottom: 2px solid black;
+
 
 }
 .settinginput {
@@ -360,3 +360,20 @@ border-bottom: 2px solid black;
   text-align: left;
   
 }
+
+.remove_btn {
+
+  display: flex;
+  border: black solid;
+  margin-top: 2px;
+}
+
+#remove_button {
+
+  position: absolute;
+  left: 900px;
+
+}
+
+
+

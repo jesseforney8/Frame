@@ -5,19 +5,36 @@
 {% block body %}
 
 
-<div>
-    <p1  id="id">{{ticket.id}}</p1>
-        <p1><b>Title:</b> {{ ticket.title }}</p1>
-        <p1><b>Description:</b> {{ ticket.body }}</p1>
-        <p1><b>Ticket Owner:</b>{{ ticket.owner }}</p1>
-        <p1><b>Ticket Submitter:</b> {{ ticket.submitter }}</p1>
-        <p1><b>Ticket Type:</b> {{ ticket.type }}</p1>
-        <p1><b>Urgency:</b> {{ ticket.urgency }}</p1>
-        <p1><b>Group:</b> {{ ticket.group_id }}</p1>
-        <p1><b>Status:</b> {{ ticket.status }}</p1>
-        <p1><b>Comments:</b> {{ ticket.comments }}</p1>
-</div>
+<div class="ticket_">
+    <label>Ticket ID: {{ticket.id}}</label>
+    <div class="label_ticket">
+        <label>Title: </label> <input type="text" value="{{ticket.title}}">
+    </div>
+    <div class="label_ticket">
+        <label>Description: </label> <input type="text" value="{{ticket.body}}">
+    </div>
+    <div class="label_ticket">
+        <label>Owner: </label> <input type="text" value="{{ticket.owner}}">
+    </div>
+    <div class="label_ticket">
+        <label>Submitter: </label> <input type="text" value="{{ticket.submitter}}">
+    </div>
+    <div class="label_ticket">
+        <label>Type: </label> <input type="text" value="{{ticket.type}}">
+    </div>
+    <div class="label_ticket">
+        <label>Urgency: </label> <input type="text" value="{{ticket.urgency}}">
+    </div>
+    <div class="label_ticket">
+        <label>Group: </label> <input type="text" value="{{ticket.group.name}}">
+    </div>  
+    <div class="label_ticket">
+        <label>Status: </label> <input type="text" value="{{ticket.status}}">
+    </div>
 
+<div>
+    <label>Comments: </label> <input type="text" value="{{ticket.comments}}">
+</div> 
 
 
 

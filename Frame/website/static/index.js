@@ -58,7 +58,7 @@ function role1(email, id){
                   method: "POST",
                   body: JSON.stringify({ group: group.value, email: user}),
                }).then((_res) => {
-                    window.location.href = "/members";
+                    window.location.href = "/group_management";
                 });   
     }
 
@@ -156,3 +156,11 @@ finalsearch.value = btnval.textContent + ": " + filterinput.value;
 
 }
 
+function deleteGroup(groupId) {
+  fetch("/group_management", {
+    method: "POST",
+    body: JSON.stringify({ groupId: groupId }),
+  }).then((_res) => {
+    window.location.href = "/group_management";
+  });
+}

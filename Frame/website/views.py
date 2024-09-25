@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, jsonify, session, redirect
+from flask import Blueprint, render_template, request, flash, jsonify, session, redirect, url_for
 from flask_login import login_required, current_user
 from models import Ticket, roles, User, Group
 from __init__ import db
@@ -84,13 +84,16 @@ def tickets():
             return render_template("tickets.html", user=current_user, tickets=Ticket.query.filter_by(org=current_user.org), groups=groups)
         #filer for group
         elif filter_info["type_"] == "group":
-            pass
+            group= Group.query.filter_by(name=filter_info["filter_input"]).first()
+
+            tickets = Ticket.query.filter_by(group_id=group.id)
+            return render_template("tickets.html", user=current_user, tickets=tickets , groups=groups)
         #filer for submitter
         elif filter_info["type_"] == "submitter":
 
             tickets = Ticket.query.filter_by(submitter=filter_info["filter_input"])
             return render_template("tickets.html", user=current_user, tickets=tickets , groups=groups)
-        #filer for owner
+        #filer for ownerS
         elif filter_info["type_"] == "owner":
             tickets = Ticket.query.filter_by(owner=filter_info["filter_input"])
             return render_template("tickets.html", user=current_user, tickets=tickets, groups=groups)
@@ -243,10 +246,27 @@ def filter():
 
         return redirect("/tickets")
 
-@views.route("/add_group_to_ticket", methods=["POST"])
+@views.route("/groups", methods=["POST", "GET"])
 @login_required
-def add_group_to_ticket():
+def groups():
+    ticketid = session["ticket_id_for_groups"]
+    ticket = Ticket.query.filter_by(id=ticketid).first()
+
     if request.method == "POST":
-        group = request.form.get("radio_group")
-        print(group)
-        return redirect("/tickets")
+        groupid = request.form.get("radio_group")
+        
+        ticket.group_id = groupid
+        db.session.commit()
+        return redirect("tickets")
+
+    groups = Group.query.all()
+    return render_template("groups.html", user=current_user, groups=groups, ticket=ticket.id)
+    
+
+@views.route("/get_ticket_id_for_group", methods=["POST"])
+@login_required
+def get_ticket_id_for_group():
+    if request.method == "POST":
+        ticketid = request.form.get("ticketId2")
+        session["ticket_id_for_groups"] = ticketid
+        return redirect("groups")

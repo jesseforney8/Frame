@@ -371,9 +371,23 @@ color: black;
 #remove_button {
 
   position: absolute;
-  left: 900px;
+  left: 725px;
 
 }
 
+.ticket_change_btn {
+
+  text-align: right;
+  position: relative;
+  top: -25px;
+  
 
 
+}
+
+.label_ticket {
+
+border: black solid;
+
+
+}

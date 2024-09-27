@@ -285,3 +285,12 @@ def group_management():
         return redirect("group_management")
 
     return render_template("group_management.html", user=current_user, groups=groups)
+
+
+@views.route("/title_change", methods=["POST", "GET"])
+@login_required
+def title_change():
+    if request.method == "POST":
+        pass
+
+    return render_template("title_change.html", user=current.user, ticket=ticket)

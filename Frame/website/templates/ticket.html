@@ -6,58 +6,82 @@
 
 
 <div class="ticket_">
+    <input value='{{ticket.id}}' name="ticket_id" id="ticket_id" hidden>
     <label>Ticket ID: {{ticket.id}}</label>
-    <div class="label_ticket">
-        <div>
-            <label>Title: </label> <input type="text" value="{{ticket.title}}">
+    <form method="post" action="/ticket_handler">
+        <div class="label_ticket">
+            <div>
+                <input value="title" name="type_" hidden>
+                <label>Title: </label> <input type="text" value="{{ticket.title}}">
+            </div>
+            <div class="ticket_change_btn">
+                <button>Change</button>
+            </div>
         </div>
-        <div class="ticket_change_btn">
-            <button>Change</button>
+    </form>
+    <form method="post" action="/ticket_handler">
+        <div class="label_ticket">
+            <input value="body" name="type_" hidden>
+            <label>Description: </label> <input type="text" value="{{ticket.body}}"> 
+            <div class="ticket_change_btn">
+                <button>Change</button>
+            </div>
         </div>
-    </div>
-    <div class="label_ticket">
-        <label>Description: </label> <input type="text" value="{{ticket.body}}"> 
-        <div class="ticket_change_btn">
-            <button>Change</button>
+    </form>
+    <form method="post" action="/ticket_handler">
+        <div class="label_ticket">
+            <input value="owner" name="type_" hidden>
+            <label>Owner: </label> <input type="text" value="{{ticket.owner}}"> 
+            <div class="ticket_change_btn">
+                <button>Change</button>
+            </div>
         </div>
-    </div>
-    <div class="label_ticket">
-        <label>Owner: </label> <input type="text" value="{{ticket.owner}}"> 
-        <div class="ticket_change_btn">
-            <button>Change</button>
+    </form>
+    <form method="post" action="/ticket_handler">
+        <div class="label_ticket">
+            <input value="submitter" name="type_" hidden>
+            <label>Submitter: </label> <input type="text" value="{{ticket.submitter}}"> 
+            <div class="ticket_change_btn">
+                <button>Change</button>
+            </div>
         </div>
-    </div>
-    <div class="label_ticket">
-        <label>Submitter: </label> <input type="text" value="{{ticket.submitter}}"> 
-        <div class="ticket_change_btn">
-            <button>Change</button>
+    </form>
+    <form method="post" action="/ticket_handler">
+        <div class="label_ticket">
+            <input value="type" name="type_" hidden>
+            <label>Type: </label> <input type="text" value="{{ticket.type}}"> 
+            <div class="ticket_change_btn">
+                <button>Change</button>
+            </div>
         </div>
-    </div>
-    <div class="label_ticket">
-        <label>Type: </label> <input type="text" value="{{ticket.type}}"> 
-        <div class="ticket_change_btn">
-            <button>Change</button>
+    </form>
+    <form method="post" action="/ticket_handler">
+        <div class="label_ticket">
+            <input value="urgency" name="type_" hidden>
+            <label>Urgency: </label> <input type="text" value="{{ticket.urgency}}"> 
+            <div class="ticket_change_btn">
+                <button>Change</button>
+            </div>
         </div>
-    </div>
-    <div class="label_ticket">
-        <label>Urgency: </label> <input type="text" value="{{ticket.urgency}}"> 
-        <div class="ticket_change_btn">
-            <button>Change</button>
+    </form>
+    <form method="post" action="/ticket_handler">
+        <div class="label_ticket">
+            <input value="group_name" name="type_" hidden>
+            <label>Group: </label> <input type="text" value="{{ticket.group.name}}"> 
+            <div class="ticket_change_btn">
+                <button>Change</button>
+            </div>
+        </div>  
+    </form>
+    <form method="post" action="/ticket_handler">
+        <div class="label_ticket">
+            <input value="status" name="type_" hidden>
+            <label>Status: </label> <input type="text" value="{{ticket.status}}"> 
+            <div class="ticket_change_btn">
+                <button>Change</button>
+            </div>
         </div>
-    </div>
-    <div class="label_ticket">
-        <label>Group: </label> <input type="text" value="{{ticket.group.name}}"> 
-        <div class="ticket_change_btn">
-            <button>Change</button>
-        </div>
-    </div>  
-    <div class="label_ticket">
-        <label>Status: </label> <input type="text" value="{{ticket.status}}"> 
-        <div class="ticket_change_btn">
-            <button>Change</button>
-        </div>
-    </div>
-
+    </form>
 <div>
     <label>Comments: </label> <input type="text" value="{{ticket.comments}}">
 </div> 

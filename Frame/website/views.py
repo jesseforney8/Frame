@@ -106,11 +106,11 @@ def ticket():
     if request.method == "POST":
         ticketId = request.form.get("ticketId")
         ticket = Ticket.query.filter_by(id=ticketId).first()
-        #session["ticket2"] = ticket
+        session["ticket2"] = ticketId
         return render_template("ticket.html", user=current_user, ticket=ticket)
     if request.method == "GET":
-        ticket = session["ticket2"]
-        print(ticket)
+        ticketId = session["ticket2"]
+        ticket = Ticket.query.filter_by(id=ticketId).first()
         return render_template("ticket.html", user=current_user, ticket=ticket)
     
 
@@ -287,10 +287,30 @@ def group_management():
     return render_template("group_management.html", user=current_user, groups=groups)
 
 
-@views.route("/title_change", methods=["POST", "GET"])
-@login_required
-def title_change():
-    if request.method == "POST":
-        pass
 
-    return render_template("title_change.html", user=current.user, ticket=ticket)
+@views.route("/ticket_handler", methods=["POST"])
+@login_required
+def ticket_handler():
+    if request.method == "POST":
+       ticketid = session["ticket2"]
+       ticket = Ticket.query.filter_by(id=ticketid).first()
+       type_ = request.form.get("type_")
+       
+       if type_ == "title":
+           return render_template("title_change.html", user=current_user, ticket=ticket)
+       elif type_ == "body":
+           return render_template("body_change.html", user=current_user, ticket=ticket)
+       elif type_ == "owner":
+           return render_template("owner_change.html", user=current_user, ticket=ticket)
+       elif type_ == "submitter":
+           return render_template("submitter_change.html", user=current_user, ticket=ticket)
+       elif type_ == "status":
+           return render_template("status_change.html", user=current_user, ticket=ticket)
+       elif type_ == "type_":
+           return render_template("type_change.html", user=current_user, ticket=ticket)
+       elif type_ == "urgency":
+           return render_template("urgency_change.html", user=current_user, ticket=ticket)
+       elif type_ == "group_name":
+          return render_template("groups.html", user=current_user, ticket=ticket)
+       else:
+           return redirect("tickets") 

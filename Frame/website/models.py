@@ -1,55 +1,60 @@
-from __init__ import db   
+from __init__ import db  
 from flask_login import UserMixin
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy import Integer, String, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+
+
+class Base(DeclarativeBase):
+  pass
 
 class User(db.Model, UserMixin):
-    __tablename__ = 'users'
+    __tablename__ = "user_table"
 
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(50), unique=True)
-    firstname = db.Column(db.String(50))
-    lastname = db.Column(db.String(50))
-    password = db.Column(db.String(50))
-    role = db.Column(db.String(50))
-    org = db.Column(db.String(20))
-    groups = db.Column(db.String(20))
+    id: Mapped[int] = mapped_column(primary_key=True)
+    email: Mapped[str] = mapped_column(unique=True)
+    firstname: Mapped[str]
+    lastname: Mapped[str]
+    password: Mapped[str]
+    role: Mapped[str]
+    org: Mapped[str]
+    
+
 
 class Ticket(db.Model):
-    __tablename__ = 'tickets'
+    __tablename__ = "ticket_table"
 
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(50))
-    body = db.Column(db.String(200))
-    urgency = db.Column(db.String(20))
-    type = db.Column(db.String(20))
-    owner = db.Column(db.String(20))
-    submitter = db.Column(db.String(20))
-    group = db.Column(db.Integer)
-    status = db.Column(db.String(20))
-    platform = db.Column(db.String(20))
-    version = db.Column(db.String(20))
-    comments = db.Column(db.String(500))
-    due_date = db.Column(db.String(20))
-    score = db.Column(db.String(20))
-    update_time = db.Column(db.String(20))
-    attachments = db.Column(db.String(20))
-    followers = db.Column(db.String(20))
-    resoltion_notes = db.Column(db.String(20))
-    r_approver = db.Column(db.String(20))
-    projected_time = db.Column(db.String(20))
-    spent_time = db.Column(db.String(20))
-    ticket_history = db.Column(db.String(20))
-    org = db.Column(db.String(20))
+    id: Mapped[int] = mapped_column(primary_key=True)
+    title: Mapped[str]
+    body: Mapped[str]
+    urgency: Mapped[str]
+    type: Mapped[str]
+    owner: Mapped[str]
+    submitter: Mapped[str]
+    group: Mapped[str]
+    status: Mapped[str]
+    comments: Mapped[str] 
+    org: Mapped[str]      
+    group_id: Mapped[int] = mapped_column(ForeignKey("group_table.id"))
+    group: Mapped["Group"] = relationship(back_populates="ticket")
+    comment: Mapped["Comment"] = relationship(back_populates="ticket")
 
 class Group(db.Model):
-    __tablename__ = 'groups'
+    __tablename__ = "group_table"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(unique=True)
+    org: Mapped[str]
+    ticket: Mapped["Ticket"] = relationship(back_populates="group")
 
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), unique=True)
-    org = db.Column(db.String(20))
-
-
-
+class Comment(db.Model):
+    __tablename__ = "comment_table"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    text: Mapped[str]
+    ticket_id: Mapped[int] = mapped_column(ForeignKey("ticket_table.id"))
+    ticket: Mapped["Ticket"] = relationship(back_populates="comment")
 
 
 

@@ -1,0 +1,39 @@
+{% extends "base1.html" %}
+
+{% block title%} Type Change {% endblock%}
+
+{% block body %}
+
+
+<form method="post" action="/type_change">
+<div class="box_selection">
+
+    <label for="type">Type</label>
+    <select class="form-select" multiple aria-label="multiple select example" id="type" name="type">
+        <label>Type</label>
+        <option value="support">Support</option>
+        <option value="bug">Bug</option>
+        <option value="project">Project</option>
+        <option value="other">Other</option>
+    </select>
+
+    <button type="submit">Submit</button>
+</form>
+  
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

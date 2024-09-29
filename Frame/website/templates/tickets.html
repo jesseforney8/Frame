@@ -9,45 +9,57 @@
 
 {% block body %}
 
-<br>
-<div class="dropdown">
-  <div class="filter_button">
-    <button button class="dropbtn" onclick="openFilterModal()" id="filterbtn">Filter</button>
-  </div> 
-</div>
+
+  <br>
+  <div class="dropdown">
+    <div class="filter_button">
+      <button button class="dropbtn" onclick="openFilterModal('modal-filter', 'modal-wrapper-filter')" id="filterbtn">Filter</button>
+    </div> 
+  </div>
+
+
+  
+  <ul class="list-group">
+
+      {% for ticket in tickets %}
+      <div class="tickets">
+          <p1  id="id"><b>Ticket ID: </b>{{ticket.id}}</p1>
+          <p1><b>Title:</b> {{ ticket.title }}</p1>
+          <p1><b>Description:</b> {{ ticket.body }}</p1>
+          <p1><b>Ticket Owner:</b>{{ ticket.owner }}</p1>
+          <p1><b>Ticket Submitter:</b> {{ ticket.submitter }}</p1>
+          <p1><b>Ticket Type:</b> {{ ticket.type }}</p1>
+          <p1><b>Urgency:</b> {{ ticket.urgency }}</p1>
+          <p1><b>Group:</b> {{ ticket.group.name }}</p1>
+          <div class="bottom_buttons">
+            <form method="post" action="/ticket">
+              <input value="{{ticket.id}}" name="ticketId" id="ticketId" hidden>
+              <button type="submit">View</button>
+            </form>
+            
+  <form method="post" action="/get_ticket_id_for_group">      
+    <div>
+      <input value="{{ticket.id}}" name="ticketId2" id="ticketId2" hidden>
+      <button button  onclick="openFilterModal('group-modal', 'group_wrapper')">Add to Group</button>
+    </div>  
+  </form> 
+
+
+            {% if user.role == "Administrator" %}
+            
+            <button  type="button" onclick="deleteTicket('{{ticket.id}}')">Delete</button>
+
+            {% elif user.role == "Super Administrator" %}
+            
+            <button  type="button" onclick="deleteTicket('{{ticket.id}}')">Delete</button>
+          </div>       
+        </div>
+          {% endif %}
+      {% endfor %}
 
 
 
-<ul class="list-group">
-
-    {% for ticket in tickets %}
-    
-        <p1  id="id">{{ticket.id}}</p1>
-        <p1><b>Title:</b> {{ ticket.title }}</p1>
-        <p1><b>Description:</b> {{ ticket.body }}</p1>
-        <p1><b>Ticket Owner:</b>{{ ticket.owner }}</p1>
-        <p1><b>Ticket Submitter:</b> {{ ticket.submitter }}</p1>
-        <p1><b>Ticket Type:</b> {{ ticket.type }}</p1>
-        <p1><b>Urgency:</b> {{ ticket.urgency }}</p1>
-
-        <button  id="btn_{{ticket.id}}" onclick="GotoTicket('{{ticket.id}}')">View</button>
-        
-        {% if user.role == "Administrator" %}
-         
-        <button  type="button" onclick="deleteTicket('{{ticket.id}}')">Delete</button>
-
-        {% elif user.role == "Super Administrator" %}
-         
-        <button  type="button" onclick="deleteTicket('{{ticket.id}}')">Delete</button>
-                
-        
-        {% endif %}
-    
-    {% endfor %}
-
-
-
-</ul>
+  </ul>
 
 
 
@@ -77,12 +89,17 @@
 
 
 
-          <button id="close-modal" onclick="closeFilterModal()">Close</button>
+          <button id="close-modal" onclick="closeFilterModal('modal-filter', 'modal-wrapper-filter' )">Close</button>
           <button type="submit" id="submit_filter_button">Submit</button>
         </form>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
+
 
 {% endblock %}

@@ -32,19 +32,6 @@
     </select>
 </div> 
 
-<form method="post" action="/add_group_to_user">
-    <div class="checkboxdiv">
-        {% for group in groups%}
-        <div>
-            <input type="checkbox" id="{{group.id}}" name="checkbox_groups" value="{{group.id}}-{{member.id}}">
-            <label for="test">{{group.name}}</label>
-        </div>
-        {% endfor %}
-    </div> 
-    <div>    
-        <button type="submit">Change Groups</button>
-    </div>
-</form>
 
 
 
@@ -53,24 +40,10 @@
 </div>
 
 {%endfor%}
-
-<input id="grp" class="settinginput1">
-<button type="button" onclick="addgroup('{{user.email}}')">Create Group</button> 
-
-<h2><b>Groups in Organization</b></h2> <br>
-{%for group in groups%}
-<p>{{group.name}}</p>
-
-
-
-
-
-
-
-
-
-
-{%endfor%}
-
-
 {% endblock %}
+
+
+
+
+
+

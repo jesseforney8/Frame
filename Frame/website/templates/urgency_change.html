@@ -1,0 +1,41 @@
+{% extends "base1.html" %}
+
+{% block title%} urgency Change {% endblock%}
+
+{% block body %}
+
+<form method="post" action="/urgency_change">
+    <div class="box_selection">
+    
+        <label for="urgency">Urgency</label>
+        <select class="form-select" multiple aria-label="multiple select example" id="urgency" name="urgency">
+            <label>Urgency</label>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+            <option value="very_high">Very High</option>
+        </select>
+    
+        <button type="submit">Submit</button>
+    </form>
+
+
+  
+  
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

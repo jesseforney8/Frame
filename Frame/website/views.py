@@ -1,8 +1,9 @@
-from flask import Blueprint, render_template, request, flash, jsonify, session, redirect
+from flask import Blueprint, render_template, request, flash, jsonify, session, redirect, url_for
 from flask_login import login_required, current_user
-from models import Ticket, roles, User, Group
+from models import Ticket, roles, User, Group, Comment
 from __init__ import db
 import json
+from functions import ticket_lookup
 
 
 views = Blueprint("views", __name__)
@@ -46,7 +47,7 @@ def create():
             error = True
             error_type = "info_not_filed_out"
         else:
-            new_ticket = Ticket(title=title, body=body, urgency=urgency, type=type_, owner="Not Assigned", submitter=submitter, org=org)
+            new_ticket = Ticket(title=title, body=body, urgency=urgency, type=type_, owner="Not Assigned", submitter=submitter, org=org, status="Open", comments="", group_id=0)
             db.session.add(new_ticket)
             db.session.commit()
             flash("Ticket Submitted!", category="success")
@@ -58,18 +59,15 @@ def create():
 @views.route("/tickets", methods=["POST", "GET"])
 @login_required
 def tickets():
-    if request.method == "POST":
-        ticket = json.loads(request.data)
+    
 
-        ticketId = ticket["ticketId"]
-        session["id"] = ticketId
+    groups = Group.query.all()
 
-        return redirect("/tickets.html")
     try:
         filter_info = session["filter_info"]
 
     except KeyError:
-        return render_template("tickets.html", user=current_user, tickets=Ticket.query.filter_by(org=current_user.org))
+        return render_template("tickets.html", user=current_user, tickets=Ticket.query.filter_by(org=current_user.org), groups=groups)
     
     if filter_info["type_"] != "" and filter_info["filter_input"] != "":
 
@@ -78,59 +76,48 @@ def tickets():
             try:
                 ticket = Ticket.query.get(filter_info["filter_input"])
                 if ticket == None:
-                    return render_template("tickets.html", user=current_user, tickets=["No Tickets"])
-                return render_template("tickets.html", user=current_user, tickets=[ticket])
+                    return render_template("tickets.html", user=current_user, tickets=["No Tickets"], groups=groups)
+                return render_template("tickets.html", user=current_user, tickets=[ticket], groups=groups)
             except UnboundLocalError:
                 return redirect("/tickets")
         #filter for all
         elif filter_info["type_"] == "all":
-            return render_template("tickets.html", user=current_user, tickets=Ticket.query.filter_by(org=current_user.org))
+            return render_template("tickets.html", user=current_user, tickets=Ticket.query.filter_by(org=current_user.org), groups=groups)
         #filer for group
         elif filter_info["type_"] == "group":
-            pass
+            group= Group.query.filter_by(name=filter_info["filter_input"]).first()
+
+            tickets = Ticket.query.filter_by(group_id=group.id)
+            return render_template("tickets.html", user=current_user, tickets=tickets , groups=groups)
         #filer for submitter
         elif filter_info["type_"] == "submitter":
 
             tickets = Ticket.query.filter_by(submitter=filter_info["filter_input"])
-            return render_template("tickets.html", user=current_user, tickets=tickets)
-        #filer for owner
+            return render_template("tickets.html", user=current_user, tickets=tickets , groups=groups)
+        #filer for ownerS
         elif filter_info["type_"] == "owner":
             tickets = Ticket.query.filter_by(owner=filter_info["filter_input"])
-            return render_template("tickets.html", user=current_user, tickets=tickets)
+            return render_template("tickets.html", user=current_user, tickets=tickets, groups=groups)
             
-    return render_template("tickets.html", user=current_user, tickets=Ticket.query.filter_by(org=current_user.org))
+    return render_template("tickets.html", user=current_user, tickets=Ticket.query.filter_by(org=current_user.org), groups=groups)
 
 @views.route(f"/ticket", methods=["POST", "GET"])
 @login_required
 def ticket():
-
-    #this is for recieving the json if they edit the ticket
-
     if request.method == "POST":
-        ticket = json.loads(request.data)
-
-        ticketId = ticket["ticketId"]
-        tickettitle = ticket["title"]
-        ticketbody = ticket["body"]
-        ticketowner = ticket["owner"]
-        ticketsubmitter = ticket["submitter"]
-        tickettype = ticket["type"]
-        ticketurgency = ticket["urgency"]
-        
-
-        ticket = Ticket.query.get(ticketId)
-
-        ticket.owner = ticketowner
-        ticket.title = tickettitle
-        ticket.body = ticketbody
-        ticket.submitter = ticketsubmitter
-        ticket.type = tickettype
-        ticket.urgency = ticketurgency
-
-        db.session.commit()
-        return jsonify({})
+        ticketId = request.form.get("ticketId")
+        comments = Comment.query.filter_by(ticket_id=ticketId)
+        ticket = Ticket.query.filter_by(id=ticketId).first()
+        session["ticket2"] = ticketId
+        return render_template("ticket.html", user=current_user, ticket=ticket, comments=comments)
+    if request.method == "GET":
+        ticketId = session["ticket2"]
+        comments = Comment.query.filter_by(ticket_id=ticketId)
+        ticket = Ticket.query.filter_by(id=ticketId).first()
+        return render_template("ticket.html", user=current_user, ticket=ticket, comments=comments)
     
-    return render_template("/ticket.html", user=current_user, tickets=Ticket.query.filter_by(id=session.get("id")))
+
+
 
 # route to recieve json to delete ticket
 
@@ -190,7 +177,7 @@ def removeorg():
         return jsonify({})
 
 #route to change role of user
-
+1
 @views.route("/changerole", methods=["POST"])
 @login_required
 def changerole():
@@ -215,6 +202,7 @@ def addgroup():
         group = usersubmit["group"]
         
         grp = Group(name=group, org=current_user.org)
+
         
         db.session.add(grp)
         db.session.commit()
@@ -261,28 +249,181 @@ def filter():
 
         return redirect("/tickets")
 
-@views.route("/add_group_to_user", methods=["POST"])
+@views.route("/groups", methods=["POST", "GET"])
 @login_required
-def add_group_to_user():
+def groups():
+    ticketid = session["ticket_id_for_groups"]
+    ticket = Ticket.query.filter_by(id=ticketid).first()
+
     if request.method == "POST":
+        groupid = request.form.get("radio_group")
         
-        user_input_groups = request.form.getlist("checkbox_groups")
-        
-        userid = user_input_groups[0].split("-")
-        userid = userid[1]
-        
-        groupids = []
-        for group in user_input_groups:
-            groupids.append(group[0])
-        
-        user = User.query.filter_by(id=userid)
-        
-        
+        ticket.group_id = groupid
         db.session.commit()
+        return redirect("tickets")
 
-
-
-
-        
-        return redirect("/members")
+    groups = Group.query.all()
+    return render_template("groups.html", user=current_user, groups=groups, ticket=ticket.id)
     
+
+@views.route("/get_ticket_id_for_group", methods=["POST"])
+@login_required
+def get_ticket_id_for_group():
+    if request.method == "POST":
+        ticketid = request.form.get("ticketId2")
+        session["ticket_id_for_groups"] = ticketid
+        return redirect("groups")
+
+@views.route("/group_management", methods=["POST", "GET"])
+@login_required
+def group_management():
+
+    groups = Group.query.all()
+
+    if request.method == "POST":
+        groupid = json.loads(request.data)
+        group = Group.query.filter_by(id=groupid["groupId"]).first()
+        db.session.delete(group)
+        db.session.commit()
+        return redirect("group_management")
+
+    return render_template("group_management.html", user=current_user, groups=groups)
+
+
+
+@views.route("/ticket_handler", methods=["POST"])
+@login_required
+def ticket_handler():
+    if request.method == "POST":
+       ticketid = session["ticket2"]
+       ticket = Ticket.query.filter_by(id=ticketid).first()
+       type_ = request.form.get("type_")
+       
+       if type_ == "title":
+           return render_template("title_change.html", user=current_user, ticket=ticket)
+       elif type_ == "body":
+           return render_template("body_change.html", user=current_user, ticket=ticket)
+       elif type_ == "owner":
+           members = User.query.all()
+           return render_template("owner_change.html", user=current_user, ticket=ticket.id, members=members)
+       elif type_ == "submitter":
+           members = User.query.all()
+           return render_template("submitter_change.html", user=current_user, ticket=ticket.id, members=members)
+       elif type_ == "status":
+           return render_template("status_change.html", user=current_user, ticket=ticket.id)
+       elif type_ == "type":
+           return render_template("type_change.html", user=current_user, ticket=ticket)
+       elif type_ == "urgency":
+           return render_template("urgency_change.html", user=current_user, ticket=ticket)
+       elif type_ == "group_name":
+          groups = Group.query.all()
+          return render_template("group_change.html", user=current_user, ticket=ticket.id, groups=groups )
+       else:
+           return redirect("tickets") 
+       
+@views.route("/title_change", methods=["POST"])
+@login_required
+def title_change():
+    if request.method == "POST":
+        ticket = ticket_lookup()
+
+        title = request.form.get("title")
+        ticket.title = title
+        db.session.commit()
+        return redirect("ticket")
+
+
+@views.route("/body_change", methods=["POST"])
+@login_required
+def body_change():
+    if request.method == "POST":
+        ticket = ticket_lookup()
+
+        body = request.form.get("body")
+        ticket.body = body
+        db.session.commit()
+        return redirect("ticket")
+
+@views.route("/owner_change", methods=["POST"])
+@login_required
+def owner_change():
+    if request.method == "POST":
+        ticket = ticket_lookup()
+        member = request.form.get("radio_group")
+
+        ticket.owner = member
+        db.session.commit()
+        return redirect("ticket")
+
+
+
+@views.route("/submitter_change", methods=["POST"])
+@login_required
+def submitter_change():
+    if request.method == "POST":
+        ticket = ticket_lookup()
+        member = request.form.get("radio_group")
+
+        ticket.submitter = member
+        db.session.commit()
+        return redirect("ticket")
+
+@views.route("/type_change", methods=["POST"])
+@login_required
+def type_change():
+    if request.method == "POST":
+        ticket = ticket_lookup()
+        type_= request.form.get("type")
+
+        ticket.type = type_
+
+        db.session.commit()
+        return redirect("ticket")
+
+
+
+@views.route("/urgency_change", methods=["POST"])
+@login_required
+def urgency_change():
+    if request.method == "POST":
+        ticket = ticket_lookup()
+        urgency = request.form.get("urgency")
+
+        ticket.urgency = urgency
+
+        db.session.commit()
+        return redirect("ticket")
+
+@views.route("/status_change", methods=["POST"])
+@login_required
+def status_change():
+    if request.method == "POST":
+        ticket = ticket_lookup()
+        status = request.form.get("radio_group")
+        print(status)
+
+        ticket.status = status
+        db.session.commit()
+        return redirect("ticket")
+
+@views.route("/group_change", methods=["POST"])
+@login_required
+def group_change():
+    if request.method == "POST":
+        ticket = ticket_lookup()
+        groupid = request.form.get("radio_group")
+        
+        ticket.group_id = groupid
+        db.session.commit()
+        return redirect("ticket")
+    
+@views.route("/add_comment", methods=["POST"])
+@login_required
+def add_comment():
+    if request.method =="POST":
+        ticket = ticket_lookup()
+        comment_text = request.form.get("comment_text_box")
+        comment = Comment(text=comment_text, ticket_id=ticket.id)
+        db.session.add(comment)
+        db.session.commit()
+        return redirect("ticket")

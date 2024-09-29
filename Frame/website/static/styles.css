@@ -115,6 +115,7 @@ float: right;
     transition: opacity 0.15s;
     margin-top: 15px;
     margin-bottom: 8px ;
+    margin-left: 5px;
   }
   
   button:hover {
@@ -211,7 +212,7 @@ float: right;
 }
 .default1 p {
 color: black;
-border-bottom: 2px solid black;
+
 
 }
 .settinginput {
@@ -342,9 +343,64 @@ border-bottom: 2px solid black;
 
 }
   
- 
+.bottom_buttons {
 
- 
+  display: flex;
+}
+
+.tickets {
+  border: black solid;
+  position: relative;
+  left: -40px;
+  width:106.3%;
+}
 
   
+.groups {
+  text-align: left;
   
+}
+
+.remove_btn {
+
+  display: flex;
+  border: black solid;
+  margin-top: 2px;
+}
+
+#remove_button {
+
+  position: absolute;
+  left: 725px;
+
+}
+
+.ticket_change_btn {
+
+  text-align: right;
+  position: relative;
+  top: -25px;
+  
+
+
+}
+
+.label_ticket {
+
+border: black solid;
+
+
+}
+
+#comment_text_box {
+
+  border: black solid;
+  width: 80%;
+  height: 200px;
+
+}
+
+.comment_div {
+
+  border: black solid;
+}

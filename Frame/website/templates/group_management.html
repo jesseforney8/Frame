@@ -1,0 +1,39 @@
+{% extends "base1.html" %}
+
+{% block title%} Groups {% endblock%}
+
+{% block body %}
+
+
+<input id="grp" class="settinginput1">
+<button type="button" onclick="addgroup('{{user.email}}')">Create Group</button> 
+
+<h2><b>Groups in Organization</b></h2> <br>
+{%for group in groups%}
+<div class="remove_btn">
+  <p>{{group.name}}</p>
+  
+  <button id="remove_button" onclick="deleteGroup('{{group.id}}')">Remove</button>
+</div>
+
+
+  
+  
+    {% endfor %}
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

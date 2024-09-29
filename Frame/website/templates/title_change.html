@@ -5,14 +5,14 @@
 {% block body %}
 
 
+<form method="post" action="/title_change">
+    <div>
+        <label>Title: </label> <input type="text" name="title" id="title" value="{{ticket.title}}"><br>
+        <button type="submit">Submit</button>
 
-<div>
-    <label>Title: </label> <input type="text" value="{{ticket.title}}">
-    <button type="submit">Submit</button>
 
-
-</div>
-  
+    </div>
+</form>
     
 
 

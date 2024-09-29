@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from models import Ticket, roles, User, Group
 from __init__ import db
 import json
+from functions import ticket_lookup
 
 
 views = Blueprint("views", __name__)
@@ -301,16 +302,117 @@ def ticket_handler():
        elif type_ == "body":
            return render_template("body_change.html", user=current_user, ticket=ticket)
        elif type_ == "owner":
-           return render_template("owner_change.html", user=current_user, ticket=ticket)
+           members = User.query.all()
+           return render_template("owner_change.html", user=current_user, ticket=ticket.id, members=members)
        elif type_ == "submitter":
-           return render_template("submitter_change.html", user=current_user, ticket=ticket)
+           members = User.query.all()
+           return render_template("submitter_change.html", user=current_user, ticket=ticket.id, members=members)
        elif type_ == "status":
-           return render_template("status_change.html", user=current_user, ticket=ticket)
-       elif type_ == "type_":
+           return render_template("status_change.html", user=current_user, ticket=ticket.id)
+       elif type_ == "type":
            return render_template("type_change.html", user=current_user, ticket=ticket)
        elif type_ == "urgency":
            return render_template("urgency_change.html", user=current_user, ticket=ticket)
        elif type_ == "group_name":
-          return render_template("groups.html", user=current_user, ticket=ticket)
+          groups = Group.query.all()
+          return render_template("group_change.html", user=current_user, ticket=ticket.id, groups=groups )
        else:
            return redirect("tickets") 
+       
+@views.route("/title_change", methods=["POST"])
+@login_required
+def title_change():
+    if request.method == "POST":
+        ticket = ticket_lookup()
+
+        title = request.form.get("title")
+        ticket.title = title
+        db.session.commit()
+        return redirect("ticket")
+
+
+@views.route("/body_change", methods=["POST"])
+@login_required
+def body_change():
+    if request.method == "POST":
+        ticket = ticket_lookup()
+
+        body = request.form.get("body")
+        ticket.body = body
+        db.session.commit()
+        return redirect("ticket")
+
+@views.route("/owner_change", methods=["POST"])
+@login_required
+def owner_change():
+    if request.method == "POST":
+        ticket = ticket_lookup()
+        member = request.form.get("radio_group")
+
+        ticket.owner = member
+        db.session.commit()
+        return redirect("ticket")
+
+
+
+@views.route("/submitter_change", methods=["POST"])
+@login_required
+def submitter_change():
+    if request.method == "POST":
+        ticket = ticket_lookup()
+        member = request.form.get("radio_group")
+
+        ticket.submitter = member
+        db.session.commit()
+        return redirect("ticket")
+
+@views.route("/type_change", methods=["POST"])
+@login_required
+def type_change():
+    if request.method == "POST":
+        ticket = ticket_lookup()
+        type_= request.form.get("type")
+
+        ticket.type = type_
+
+        db.session.commit()
+        return redirect("ticket")
+
+
+
+@views.route("/urgency_change", methods=["POST"])
+@login_required
+def urgency_change():
+    if request.method == "POST":
+        ticket = ticket_lookup()
+        urgency = request.form.get("urgency")
+
+        ticket.urgency = urgency
+
+        db.session.commit()
+        return redirect("ticket")
+
+@views.route("/status_change", methods=["POST"])
+@login_required
+def status_change():
+    if request.method == "POST":
+        ticket = ticket_lookup()
+        status = request.form.get("radio_group")
+        print(status)
+
+        ticket.status = status
+        db.session.commit()
+        return redirect("ticket")
+
+@views.route("/group_change", methods=["POST"])
+@login_required
+def group_change():
+    if request.method == "POST":
+        ticket = ticket_lookup()
+
+    
+        groupid = request.form.get("radio_group")
+        
+        ticket.group_id = groupid
+        db.session.commit()
+        return redirect("ticket")

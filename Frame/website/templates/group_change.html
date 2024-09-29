@@ -1,0 +1,41 @@
+{% extends "base1.html" %}
+
+{% block title%} Groups {% endblock%}
+
+{% block body %}
+
+
+<form method="post" action="/group_change">
+    <h4>Please Select Group for ticket {{ticket}} </h4>
+    
+    {% for group in groups %}
+    
+    <div class="groups">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="radio_group" value="{{group.id}}">
+        <label class="form-check-label" for="flexRadioDefault1">
+          {{group.name}} 
+        </label>
+      </div>
+  </div>
+
+  
+  
+    {% endfor %}
+
+<button type="submit">Submit</button>
+
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

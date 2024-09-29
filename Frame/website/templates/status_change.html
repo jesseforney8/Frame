@@ -2,11 +2,35 @@
 
 {% block title%} Status Change {% endblock%}
 
+
+
 {% block body %}
 
 
 
-  
+
+    <h4>Please Select owner for ticket {{ticket}} </h4>
+    
+    
+    <form method="post" action="/status_change">
+        <div class="groups">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="radio_group" value="open">
+            <label class="form-check-label" for="flexRadioDefault1">
+             Open
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="radio_group" value="closed">
+            <label class="form-check-label" for="flexRadioDefault1">
+            closed
+            </label>
+        
+        </div>
+        </div>
+        
+    <button type="submit>">Submit</button>
+</form>
   
     
 

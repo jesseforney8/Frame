@@ -40,14 +40,21 @@ class Ticket(db.Model):
     org: Mapped[str]      
     group_id: Mapped[int] = mapped_column(ForeignKey("group_table.id"))
     group: Mapped["Group"] = relationship(back_populates="ticket")
+    comment: Mapped["Comment"] = relationship(back_populates="ticket")
 
 class Group(db.Model):
     __tablename__ = "group_table"
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(unique=True)
     org: Mapped[str]
-    
     ticket: Mapped["Ticket"] = relationship(back_populates="group")
+
+class Comment(db.Model):
+    __tablename__ = "comment_table"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    text: Mapped[str]
+    ticket_id: Mapped[int] = mapped_column(ForeignKey("ticket_table.id"))
+    ticket: Mapped["Ticket"] = relationship(back_populates="comment")
 
 
 

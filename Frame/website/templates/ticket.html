@@ -82,10 +82,22 @@
             </div>
         </div>
     </form>
-<div>
-    <label>Comments: </label> <input type="text" value="{{ticket.comments}}">
-</div> 
 
+    <label>Comments: </label> 
+    <div>
+        {% for comment in comments %}
+        <div class="comment_div">
+            <p1>{{comment.text}}</p1>
+        </div>
+        {% endfor %}
+    </div>
+
+    <form method="post" action="/add_comment">
+        <div>
+            <input type="text" id="comment_text_box" name="comment_text_box"> <br>
+            <button type="submit">Submit Comment</button>
+        </div> 
+    </form>
 
 
 

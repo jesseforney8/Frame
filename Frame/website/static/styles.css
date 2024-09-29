@@ -391,3 +391,16 @@ border: black solid;
 
 
 }
+
+#comment_text_box {
+
+  border: black solid;
+  width: 80%;
+  height: 200px;
+
+}
+
+.comment_div {
+
+  border: black solid;
+}

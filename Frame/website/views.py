@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, jsonify, session, redirect, url_for
 from flask_login import login_required, current_user
-from models import Ticket, roles, User, Group
+from models import Ticket, roles, User, Group, Comment
 from __init__ import db
 import json
 from functions import ticket_lookup
@@ -106,13 +106,15 @@ def tickets():
 def ticket():
     if request.method == "POST":
         ticketId = request.form.get("ticketId")
+        comments = Comment.query.filter_by(ticket_id=ticketId)
         ticket = Ticket.query.filter_by(id=ticketId).first()
         session["ticket2"] = ticketId
-        return render_template("ticket.html", user=current_user, ticket=ticket)
+        return render_template("ticket.html", user=current_user, ticket=ticket, comments=comments)
     if request.method == "GET":
         ticketId = session["ticket2"]
+        comments = Comment.query.filter_by(ticket_id=ticketId)
         ticket = Ticket.query.filter_by(id=ticketId).first()
-        return render_template("ticket.html", user=current_user, ticket=ticket)
+        return render_template("ticket.html", user=current_user, ticket=ticket, comments=comments)
     
 
 
@@ -409,10 +411,19 @@ def status_change():
 def group_change():
     if request.method == "POST":
         ticket = ticket_lookup()
-
-    
         groupid = request.form.get("radio_group")
         
         ticket.group_id = groupid
+        db.session.commit()
+        return redirect("ticket")
+    
+@views.route("/add_comment", methods=["POST"])
+@login_required
+def add_comment():
+    if request.method =="POST":
+        ticket = ticket_lookup()
+        comment_text = request.form.get("comment_text_box")
+        comment = Comment(text=comment_text, ticket_id=ticket.id)
+        db.session.add(comment)
         db.session.commit()
         return redirect("ticket")
